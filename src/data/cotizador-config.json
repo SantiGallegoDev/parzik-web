@@ -1,0 +1,123 @@
+{
+  "currency": "COP",
+  "currencySymbol": "$",
+  "whatsappNumber": "573XXXXXXXXX",
+  "discountPercent": 10,
+  "discountLabel": "Descuento por contratar hoy",
+  "steps": [
+    {
+      "id": "tipo-sitio",
+      "title": "Tipo de sitio",
+      "description": "Elige el formato principal del proyecto.",
+      "type": "single-select",
+      "options": [
+        {
+          "id": "landing",
+          "label": "Landing",
+          "description": "Para campanas, ofertas y captacion.",
+          "price": 450000,
+          "features": ["CTA claro", "WhatsApp + formulario", "Diseno rapido"],
+          "featured": false
+        },
+        {
+          "id": "corporativo",
+          "label": "Corporativo",
+          "description": "Para presentar tu empresa y servicios.",
+          "price": 800000,
+          "features": ["Estructura profesional", "Secciones claras", "Listo para crecer"],
+          "featured": true
+        },
+        {
+          "id": "tienda",
+          "label": "Tienda",
+          "description": "Para vender con carrito y checkout.",
+          "price": 1500000,
+          "features": ["Catalogo + pagos", "Carrito + checkout", "Listo para operar"],
+          "featured": false
+        }
+      ]
+    },
+    {
+      "id": "paginas-adicionales",
+      "title": "Paginas adicionales",
+      "description": "Cuantas paginas o secciones extras necesitas?",
+      "type": "quantity",
+      "pricePerUnit": 80000,
+      "unitLabel": "pagina",
+      "min": 0,
+      "max": 20
+    },
+    {
+      "id": "productos",
+      "title": "Cantidad de productos",
+      "description": "Cuantos productos tendra tu tienda?",
+      "type": "single-select",
+      "condition": { "stepId": "tipo-sitio", "value": "tienda" },
+      "options": [
+        { "id": "hasta-50", "label": "Hasta 50 productos", "price": 250000 },
+        { "id": "50-200", "label": "50 - 200 productos", "price": 500000 },
+        { "id": "200-500", "label": "200 - 500 productos", "price": 1000000 },
+        { "id": "500-plus", "label": "Mas de 500 productos", "price": 3000000 }
+      ]
+    },
+    {
+      "id": "pasarela-pago",
+      "title": "Pasarela de pago",
+      "description": "Necesitas integrar pagos online?",
+      "type": "single-select",
+      "options": [
+        { "id": "ninguna", "label": "No necesito", "price": 0 },
+        { "id": "payu", "label": "PayU", "price": 200000 },
+        { "id": "mercadopago", "label": "Mercado Pago", "price": 200000 },
+        { "id": "stripe", "label": "Stripe", "price": 200000 }
+      ]
+    },
+    {
+      "id": "correo-corporativo",
+      "title": "Correo corporativo",
+      "description": "Email profesional con tu dominio (ej: info@tuempresa.com)",
+      "type": "toggle",
+      "price": 70000
+    },
+    {
+      "id": "dominio",
+      "title": "Dominio",
+      "description": "Registro de tu dominio .com / .co",
+      "type": "toggle",
+      "price": 100000
+    },
+    {
+      "id": "hosting",
+      "title": "Hosting con SSL",
+      "description": "Alojamiento web seguro con certificado SSL y backups",
+      "type": "toggle",
+      "price": 150000,
+      "priceLabel": "/ano"
+    },
+    {
+      "id": "seo",
+      "title": "SEO basico",
+      "description": "Optimizacion para motores de busqueda",
+      "type": "toggle",
+      "price": 200000
+    },
+    {
+      "id": "blog",
+      "title": "Blog / Noticias",
+      "description": "Seccion de articulos y publicaciones para tu sitio",
+      "type": "toggle",
+      "price": 150000
+    },
+    {
+      "id": "plazo",
+      "title": "Plazo de entrega",
+      "description": "Selecciona la urgencia del proyecto.",
+      "type": "single-select",
+      "options": [
+        { "id": "urgente", "label": "Urgente (1-2 semanas)", "multiplier": 1.25 },
+        { "id": "normal", "label": "Normal (3-4 semanas)", "multiplier": 1.0 },
+        { "id": "extendida", "label": "Extendida (5-6 semanas)", "multiplier": 0.90 }
+      ]
+    }
+  ]
+}

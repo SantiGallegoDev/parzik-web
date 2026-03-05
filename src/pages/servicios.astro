@@ -1,0 +1,476 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Servicios — Parzik">
+  <Navbar />
+
+  <section class="page-hero">
+    <div class="hero-bg">
+      <div class="circle circle-1"></div>
+      <div class="circle circle-2"></div>
+    </div>
+    <div class="container">
+      <p class="tag" data-animate="blur">Lo que hacemos</p>
+      <h1 data-animate="fade-up" data-delay="100">Servicios</h1>
+      <p class="subtitle" data-animate="fade-up" data-delay="200">Soluciones integrales de tecnología y marketing para escalar tu negocio.</p>
+    </div>
+  </section>
+
+  <section class="services-detail">
+    <div class="container">
+
+      <div class="service-row" data-animate="fade-left">
+        <div class="service-info">
+          <div class="service-number">01</div>
+          <h2>Desarrollo Web</h2>
+          <p>Creamos sitios web rápidos, modernos y optimizados para conversión. Desde landing pages hasta plataformas complejas con las mejores tecnologías del mercado.</p>
+          <ul>
+            <li>Sitios corporativos</li>
+            <li>Landing pages de alto rendimiento</li>
+            <li>E-commerce y tiendas online</li>
+            <li>Aplicaciones web progresivas (PWA)</li>
+          </ul>
+          <div class="tech-tags">
+            <span>Astro</span><span>React</span><span>Next.js</span><span>Tailwind</span>
+          </div>
+        </div>
+        <div class="service-visual">
+          <div class="visual-card">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-row reverse" data-animate="fade-right">
+        <div class="service-info">
+          <div class="service-number">02</div>
+          <h2>Software a Medida</h2>
+          <p>Desarrollamos sistemas personalizados que automatizan procesos, integran herramientas y escalan con tu operación. Desde CRMs hasta dashboards internos.</p>
+          <ul>
+            <li>Sistemas de gestión internos</li>
+            <li>CRM y ERP personalizados</li>
+            <li>Automatización de procesos</li>
+            <li>Integraciones con APIs y servicios</li>
+          </ul>
+          <div class="tech-tags">
+            <span>Node.js</span><span>Python</span><span>PostgreSQL</span><span>AWS</span>
+          </div>
+        </div>
+        <div class="service-visual">
+          <div class="visual-card">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-row" data-animate="fade-left">
+        <div class="service-info">
+          <div class="service-number">03</div>
+          <h2>Marketing Digital</h2>
+          <p>Estrategias de crecimiento basadas en datos. Gestionamos campañas, optimizamos conversión y posicionamos tu marca donde están tus clientes.</p>
+          <ul>
+            <li>Google Ads y Meta Ads</li>
+            <li>SEO y posicionamiento orgánico</li>
+            <li>Email marketing y automatización</li>
+            <li>Estrategia de contenidos</li>
+          </ul>
+          <div class="tech-tags">
+            <span>Google Ads</span><span>Meta</span><span>Analytics</span><span>SEO</span>
+          </div>
+        </div>
+        <div class="service-visual">
+          <div class="visual-card">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-row reverse" data-animate="fade-right">
+        <div class="service-info">
+          <div class="service-number">04</div>
+          <h2>Branding e Identidad</h2>
+          <p>Construimos marcas coherentes y memorables. Desde el logo hasta el sistema de diseño completo, cada pieza refleja la esencia de tu negocio.</p>
+          <ul>
+            <li>Diseño de logotipo y marca</li>
+            <li>Manual de identidad visual</li>
+            <li>Sistemas de diseño UI/UX</li>
+            <li>Estrategia de marca</li>
+          </ul>
+          <div class="tech-tags">
+            <span>Figma</span><span>Illustrator</span><span>Design Systems</span>
+          </div>
+        </div>
+        <div class="service-visual">
+          <div class="visual-card">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="process">
+    <div class="container">
+      <p class="tag" data-animate="fade-up">Cómo trabajamos</p>
+      <h2 data-animate="fade-up" data-delay="100">Nuestro proceso</h2>
+      <div class="process-grid" data-stagger>
+        <div class="process-step">
+          <div class="step-num">1</div>
+          <h3>Descubrimiento</h3>
+          <p>Entendemos tu negocio, objetivos y audiencia para definir la estrategia correcta.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">2</div>
+          <h3>Estrategia</h3>
+          <p>Planificamos la solución, arquitectura y roadmap del proyecto.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">3</div>
+          <h3>Ejecución</h3>
+          <p>Diseñamos y desarrollamos con sprints iterativos y entregas continuas.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">4</div>
+          <h3>Lanzamiento</h3>
+          <p>Desplegamos, optimizamos y te acompañamos en el crecimiento post-launch.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-card" data-animate="scale">
+        <h2>¿Listo para empezar?</h2>
+        <p>Cuéntanos sobre tu proyecto y te mostraremos cómo podemos ayudarte.</p>
+        <a href="/contacto" class="btn-primary">Agenda una llamada</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .tag {
+    color: var(--lime-green);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-xs);
+  }
+
+  /* Background elements */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--lime-green);
+  }
+
+  .circle-1 {
+    width: 450px;
+    height: 450px;
+    top: -120px;
+    left: -120px;
+    opacity: 0.04;
+  }
+
+  .circle-2 {
+    width: 300px;
+    height: 300px;
+    bottom: -60px;
+    right: -60px;
+    opacity: 0.03;
+  }
+
+  /* Page Hero */
+  .page-hero {
+    position: relative;
+    padding: 140px var(--space-lg) var(--space-2xl);
+    text-align: center;
+    background: linear-gradient(180deg, #0A0A0A 0%, #111219 100%);
+    overflow: hidden;
+  }
+
+  .page-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+  }
+
+  .subtitle {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.0625rem;
+    max-width: 500px;
+    margin: 0 auto;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* Services Detail */
+  .services-detail {
+    padding: var(--space-2xl) var(--space-lg) var(--space-2xl);
+    background: radial-gradient(ellipse at 20% 50%, rgba(203, 232, 80, 0.02) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 30%, rgba(203, 232, 80, 0.015) 0%, transparent 50%);
+  }
+
+  .service-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+    padding: var(--space-xl) var(--space-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    transition: background 0.4s;
+  }
+
+  .service-row:hover {
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  .service-row.reverse {
+    direction: rtl;
+  }
+
+  .service-row.reverse > * {
+    direction: ltr;
+  }
+
+  .service-number {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    color: var(--lime-green);
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+  }
+
+  .service-info h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+  }
+
+  .service-info p {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: var(--space-md);
+  }
+
+  .service-info ul {
+    list-style: none;
+    margin-bottom: var(--space-md);
+  }
+
+  .service-info li {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+    padding: 4px 0;
+    padding-left: var(--space-sm);
+    position: relative;
+  }
+
+  .service-info li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 4px;
+    height: 4px;
+    background: var(--lime-green);
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tech-tags span {
+    padding: 4px 10px;
+    background: rgba(203, 232, 80, 0.08);
+    border: 1px solid rgba(203, 232, 80, 0.15);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--lime-green);
+    font-weight: 500;
+  }
+
+  .service-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .visual-card {
+    width: 160px;
+    height: 160px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lime-green);
+    box-shadow: 0 0 80px rgba(203, 232, 80, 0.06), inset 0 0 30px rgba(203, 232, 80, 0.02);
+    transition: box-shadow 0.4s, border-color 0.4s;
+  }
+
+  .service-row:hover .visual-card {
+    box-shadow: 0 0 100px rgba(203, 232, 80, 0.1), inset 0 0 40px rgba(203, 232, 80, 0.03);
+    border-color: rgba(203, 232, 80, 0.15);
+  }
+
+  /* Process */
+  .process {
+    position: relative;
+    padding: var(--space-2xl) var(--space-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: linear-gradient(180deg, rgba(17, 18, 25, 0.5) 0%, #0A0A0A 100%);
+  }
+
+  .process h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    margin-bottom: var(--space-xl);
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  .process-step {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: var(--space-md);
+    transition: border-color 0.3s, background 0.3s, transform 0.3s;
+  }
+
+  .process-step:hover {
+    border-color: rgba(203, 232, 80, 0.15);
+    background: rgba(203, 232, 80, 0.03);
+    transform: translateY(-4px);
+  }
+
+  .step-num {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--lime-green);
+    margin-bottom: var(--space-xs);
+  }
+
+  .process-step h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+  }
+
+  .process-step p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: var(--space-xl) var(--space-lg) var(--space-2xl);
+  }
+
+  .cta-card {
+    background: linear-gradient(135deg, rgba(203, 232, 80, 0.04) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(203, 232, 80, 0.1);
+    border-radius: 16px;
+    padding: var(--space-2xl);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(203, 232, 80, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .cta-card h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+  }
+
+  .cta-card p {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 1rem;
+    margin-bottom: var(--space-lg);
+    font-weight: 300;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--lime-green);
+    color: var(--deep-ocean);
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(203, 232, 80, 0.25);
+  }
+
+  @media (max-width: 768px) {
+    .service-row,
+    .service-row.reverse {
+      grid-template-columns: 1fr;
+      direction: ltr;
+    }
+
+    .service-visual {
+      display: none;
+    }
+
+    .process-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .process-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

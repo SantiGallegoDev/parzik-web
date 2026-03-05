@@ -1,0 +1,307 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import Footer from '../components/Footer.astro';
+import config from '../data/cotizador-config.json';
+
+const plans = config.steps[0].options;
+
+function formatPrice(num: number) {
+  return '$ ' + num.toLocaleString('es-CO');
+}
+---
+
+<Layout title="Parzik — Software + Marketing">
+  <Navbar />
+  <Hero />
+  <Services />
+
+  <section id="nosotros" class="about">
+    <div class="container">
+      <p class="section-tag" data-animate="fade-up">Quienes somos</p>
+      <h2 data-animate="fade-up" data-delay="100">Tecnología y creatividad<br /><span class="highlight">en un solo equipo</span></h2>
+      <p class="about-text" data-animate="fade-up" data-delay="200">
+        Somos una agencia híbrida que une el desarrollo de software con estrategias de marketing digital.
+        Creamos soluciones integrales que conectan tecnología con resultados de negocio.
+      </p>
+      <div class="stats" data-stagger>
+        <div class="stat">
+          <span class="stat-number">50+</span>
+          <span class="stat-label">Proyectos</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">30+</span>
+          <span class="stat-label">Clientes</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">3+</span>
+          <span class="stat-label">Anos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="plans">
+    <div class="container">
+      <p class="section-tag" data-animate="fade-up">Planes</p>
+      <h2 data-animate="fade-up" data-delay="100">Tipo de sitio</h2>
+      <p class="plans-sub" data-animate="fade-up" data-delay="200">Elige el formato principal del proyecto.</p>
+
+      <div class="plans-grid" data-stagger>
+        {plans.map((plan) => (
+          <div class={`plan-card${plan.featured ? ' featured' : ''}`}>
+            {plan.featured && <div class="plan-badge">Popular</div>}
+            <div class="plan-header">
+              <h3>{plan.label}</h3>
+              <span class="plan-price">{formatPrice(plan.price)}</span>
+            </div>
+            <p class="plan-desc">{plan.description}</p>
+            <ul>
+              {plan.features.map((f) => <li>{f}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div class="plans-cta" data-animate="fade-up" data-delay="300">
+        <a href="/cotizador" class="btn-primary">Cotiza tu proyecto a medida</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="contact">
+    <div class="container">
+      <div class="contact-card" data-animate="scale">
+        <h2>Hablemos de tu proyecto</h2>
+        <p>Agenda una llamada gratuita y descubramos cómo impulsar tu negocio.</p>
+        <a href="mailto:hola@parzik.com" class="btn-primary">Contáctanos</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    color: var(--lime-green);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-xs);
+  }
+
+  .highlight {
+    color: var(--lime-green);
+  }
+
+  /* About */
+  .about {
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .about h2 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+  }
+
+  .about-text {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.0625rem;
+    max-width: 600px;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: var(--space-xl);
+  }
+
+  .stats {
+    display: flex;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-number {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--lime-green);
+  }
+
+  .stat-label {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+    font-weight: 300;
+  }
+
+  /* Plans */
+  .plans {
+    padding: var(--space-2xl) var(--space-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .plans h2 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+  }
+
+  .plans-sub {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.9375rem;
+    font-weight: 300;
+    margin-bottom: var(--space-xl);
+  }
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .plan-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: var(--space-lg);
+    transition: border-color 0.3s, transform 0.3s, background 0.3s;
+  }
+
+  .plan-card:hover {
+    border-color: rgba(203, 232, 80, 0.2);
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .plan-card.featured {
+    border-color: rgba(203, 232, 80, 0.25);
+    background: rgba(203, 232, 80, 0.04);
+  }
+
+  .plan-badge {
+    position: absolute;
+    top: -10px;
+    right: var(--space-sm);
+    background: var(--lime-green);
+    color: var(--deep-ocean);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+  }
+
+  .plan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--space-xs);
+  }
+
+  .plan-header h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .plan-price {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--lime-green);
+  }
+
+  .plan-desc {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.875rem;
+    font-weight: 300;
+    margin-bottom: var(--space-sm);
+  }
+
+  .plan-card ul {
+    list-style: none;
+  }
+
+  .plan-card li {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.875rem;
+    padding: 3px 0 3px var(--space-sm);
+    position: relative;
+  }
+
+  .plan-card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 4px;
+    height: 4px;
+    background: var(--lime-green);
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
+
+  .plans-cta {
+    text-align: center;
+    margin-top: var(--space-xl);
+  }
+
+  @media (max-width: 768px) {
+    .plans-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Contact */
+  .contact {
+    padding: var(--space-xl) var(--space-lg) var(--space-2xl);
+  }
+
+  .contact-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: var(--space-2xl);
+    text-align: center;
+  }
+
+  .contact-card h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+  }
+
+  .contact-card p {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 1rem;
+    margin-bottom: var(--space-lg);
+    font-weight: 300;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--lime-green);
+    color: var(--deep-ocean);
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(203, 232, 80, 0.25);
+  }
+</style>
