@@ -14,9 +14,9 @@
         {
           "id": "landing",
           "label": "Landing",
-          "description": "Para campanas, ofertas y captacion.",
+          "description": "Para campañas, ofertas y captación.",
           "price": 450000,
-          "features": ["CTA claro", "WhatsApp + formulario", "Diseno rapido"],
+          "features": ["CTA claro", "WhatsApp + formulario", "Diseño rápido"],
           "featured": false
         },
         {
@@ -32,38 +32,38 @@
           "label": "Tienda",
           "description": "Para vender con carrito y checkout.",
           "price": 1500000,
-          "features": ["Catalogo + pagos", "Carrito + checkout", "Listo para operar"],
+          "features": ["Catálogo + pagos", "Carrito + checkout", "Listo para operar"],
           "featured": false
         }
       ]
     },
     {
       "id": "paginas-adicionales",
-      "title": "Paginas adicionales",
-      "description": "Cuantas paginas o secciones extras necesitas?",
+      "title": "Páginas adicionales",
+      "description": "¿Cuántas páginas o secciones extras necesitas?",
       "type": "quantity",
       "pricePerUnit": 80000,
-      "unitLabel": "pagina",
+      "unitLabel": "página",
       "min": 0,
       "max": 20
     },
     {
       "id": "productos",
       "title": "Cantidad de productos",
-      "description": "Cuantos productos tendra tu tienda?",
+      "description": "¿Cuántos productos tendrá tu tienda?",
       "type": "single-select",
       "condition": { "stepId": "tipo-sitio", "value": "tienda" },
       "options": [
         { "id": "hasta-50", "label": "Hasta 50 productos", "price": 250000 },
         { "id": "50-200", "label": "50 - 200 productos", "price": 500000 },
         { "id": "200-500", "label": "200 - 500 productos", "price": 1000000 },
-        { "id": "500-plus", "label": "Mas de 500 productos", "price": 3000000 }
+        { "id": "500-plus", "label": "Más de 500 productos", "price": 3000000 }
       ]
     },
     {
       "id": "pasarela-pago",
       "title": "Pasarela de pago",
-      "description": "Necesitas integrar pagos online?",
+      "description": "¿Necesitas integrar pagos online?",
       "type": "single-select",
       "options": [
         { "id": "ninguna", "label": "No necesito", "price": 0 },
@@ -92,19 +92,19 @@
       "description": "Alojamiento web seguro con certificado SSL y backups",
       "type": "toggle",
       "price": 150000,
-      "priceLabel": "/ano"
+      "priceLabel": "/año"
     },
     {
       "id": "seo",
-      "title": "SEO basico",
-      "description": "Optimizacion para motores de busqueda",
+      "title": "SEO básico",
+      "description": "Optimización para motores de búsqueda",
       "type": "toggle",
       "price": 200000
     },
     {
       "id": "blog",
       "title": "Blog / Noticias",
-      "description": "Seccion de articulos y publicaciones para tu sitio",
+      "description": "Sección de artículos y publicaciones para tu sitio",
       "type": "toggle",
       "price": 150000
     },
