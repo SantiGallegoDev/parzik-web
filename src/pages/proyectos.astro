@@ -1,0 +1,604 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const projects = [
+  {
+    name: "Cocora Coffee House",
+    url: "https://www.cocoracoffeehouse.com/",
+    image: "/projects/cocora-coffee.jpg",
+    category: "Restaurante",
+  },
+  {
+    name: "Luxury Patios LLC",
+    url: "https://www.luxurypatiosllc.com/",
+    image: "/projects/luxury-patios.jpg",
+    category: "Construcción",
+  },
+  {
+    name: "Dental Bianca",
+    url: "https://www.dentalbianca.com/",
+    image: "/projects/dental-bianca.jpg",
+    category: "Salud",
+  },
+  {
+    name: "Lopez Pool Service",
+    url: "https://www.lopezpoolservicellc.com/",
+    image: "/projects/lopez-pool.jpg",
+    category: "Servicios",
+  },
+  {
+    name: "Estefanía Muñoz",
+    url: "https://www.estefaniamunozmartinez.com/",
+    image: "/projects/estefania-munoz.jpg",
+    category: "Portafolio",
+  },
+  {
+    name: "La Cocina de Martina",
+    url: "https://www.lacocinademartinallc.com/",
+    image: "/projects/cocina-martina.jpg",
+    category: "Restaurante",
+  },
+  {
+    name: "FitConnect Pro",
+    url: "https://www.fitconnectpro.co/",
+    image: "/projects/fitconnect-pro.jpg",
+    category: "Fitness",
+  },
+  {
+    name: "Luxor Styling",
+    url: "https://www.luxorstyling.com/",
+    image: "/projects/luxor-styling.jpg",
+    category: "Belleza",
+  },
+  {
+    name: "The Printing Center NJ",
+    url: "https://www.theprintingcenternj.com/",
+    image: "/projects/printing-center.jpg",
+    category: "Imprenta",
+  },
+  {
+    name: "Timbec Clean Solutions",
+    url: "https://www.timbecleansolutions.com/",
+    image: "/projects/timbec-clean.jpg",
+    category: "Servicios",
+  },
+  {
+    name: "Vicente Hernández",
+    url: "https://www.vicentehernandez.com/",
+    image: "/projects/vicente-hernandez.jpg",
+    category: "Portafolio",
+  },
+  {
+    name: "NJ Printing LLC",
+    url: "https://www.njprintingllc.com/",
+    image: "/projects/nj-printing.jpg",
+    category: "Imprenta",
+  },
+  {
+    name: "Nuevas Generaciones",
+    url: "https://www.nuevasgeneraciones.co/",
+    image: "/projects/nuevas-generaciones.jpg",
+    category: "Educación",
+  },
+];
+
+const categories = ["Todos", ...new Set(projects.map(p => p.category))];
+---
+
+<Layout title="Proyectos — Parzik">
+  <Navbar />
+
+  <!-- Hero -->
+  <section class="page-hero">
+    <div class="hero-bg">
+      <div class="grid-pattern"></div>
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+    </div>
+    <div class="container">
+      <p class="tag" data-animate="blur">Portafolio</p>
+      <h1 data-animate="fade-up" data-delay="100">
+        Cada pixel,<br /><span class="highlight">cada línea de código</span>
+      </h1>
+      <p class="subtitle" data-animate="fade-up" data-delay="200">
+        +50 proyectos entregados. Estas son algunas de las soluciones digitales que hemos construido.
+      </p>
+
+      <!-- Category filters -->
+      <div class="filters" data-animate="fade-up" data-delay="300">
+        {categories.map((cat, i) => (
+          <button class={`filter-btn ${i === 0 ? 'active' : ''}`} data-filter={cat}>
+            {cat}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bento Portfolio -->
+  <section class="portfolio">
+    <div class="container-wide">
+      <div class="bento-grid">
+        {projects.map((project) => (
+          <a
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bento-card"
+            data-category={project.category}
+          >
+            <!-- Screenshot preview -->
+            <div class="preview-frame">
+              <img
+                src={project.image}
+                alt={project.name}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <!-- Overlay on hover -->
+            <div class="card-overlay">
+              <div class="overlay-content">
+                <span class="project-cat">{project.category}</span>
+                <h3>{project.name}</h3>
+                <div class="visit-btn">
+                  <span>Visitar sitio</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Corner accent -->
+            <div class="corner-accent"></div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <div class="cta-box" data-animate="fade-up">
+        <div class="cta-glow"></div>
+        <p class="cta-tag">¿Te gustó lo que viste?</p>
+        <h2>Tu proyecto puede ser el <span class="highlight">próximo</span></h2>
+        <p class="cta-desc">Cuéntanos tu idea y construyamos juntos algo increíble.</p>
+        <div class="cta-actions">
+          <a href="/contacto" class="btn-primary">
+            Agenda una llamada
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.bento-card');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        cards.forEach(card => {
+          const cat = card.getAttribute('data-category');
+          if (filter === 'Todos' || cat === filter) {
+            (card as HTMLElement).style.display = '';
+            requestAnimationFrame(() => {
+              card.classList.remove('card-hidden');
+            });
+          } else {
+            card.classList.add('card-hidden');
+            setTimeout(() => {
+              (card as HTMLElement).style.display = 'none';
+            }, 300);
+          }
+        });
+      });
+    });
+  });
+</script>
+
+<style>
+  /* Hero */
+  .page-hero {
+    position: relative;
+    padding: 160px var(--space-lg) 60px;
+    text-align: center;
+    overflow: hidden;
+    background: var(--deep-ocean);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+  }
+
+  .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+  }
+
+  .glow-1 {
+    width: 500px;
+    height: 500px;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(203, 232, 80, 0.08);
+  }
+
+  .glow-2 {
+    width: 300px;
+    height: 300px;
+    bottom: -100px;
+    right: 10%;
+    background: rgba(203, 232, 80, 0.04);
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .container-wide {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1px solid rgba(203, 232, 80, 0.3);
+    border-radius: 100px;
+    font-size: 0.8125rem;
+    color: var(--lime-green);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-md);
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 5.5vw, 3.75rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: var(--space-md);
+  }
+
+  .highlight {
+    color: var(--lime-green);
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 480px;
+    margin: 0 auto var(--space-xl);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* Filters */
+  .filters {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 8px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 100px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: var(--font-body);
+  }
+
+  .filter-btn:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .filter-btn.active {
+    background: var(--lime-green);
+    color: var(--deep-ocean);
+    border-color: var(--lime-green);
+    font-weight: 600;
+  }
+
+  /* Bento Grid */
+  .portfolio {
+    padding: var(--space-xl) 0 var(--space-2xl);
+    background: var(--deep-ocean);
+  }
+
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .bento-card {
+    position: relative;
+    display: block;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    aspect-ratio: 16 / 10;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s,
+                box-shadow 0.4s;
+  }
+
+  .bento-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    border-color: rgba(203, 232, 80, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(203, 232, 80, 0.06);
+  }
+
+  .bento-card.card-hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  /* Screenshot Preview */
+  .preview-frame {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: #111;
+  }
+
+  .preview-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top left;
+    transition: transform 6s cubic-bezier(0.25, 0, 0.25, 1);
+  }
+
+  .bento-card:hover .preview-frame img {
+    transform: scale(1.05);
+  }
+
+  /* Overlay */
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(10, 10, 10, 0.95) 0%,
+      rgba(10, 10, 10, 0.5) 40%,
+      rgba(10, 10, 10, 0.05) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.35s;
+    display: flex;
+    align-items: flex-end;
+    padding: var(--space-lg);
+  }
+
+  .bento-card:hover .card-overlay {
+    opacity: 1;
+  }
+
+  .overlay-content {
+    transform: translateY(12px);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .bento-card:hover .overlay-content {
+    transform: translateY(0);
+  }
+
+  .project-cat {
+    display: inline-block;
+    padding: 3px 10px;
+    background: rgba(203, 232, 80, 0.15);
+    color: var(--lime-green);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    border-radius: 100px;
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .card-overlay h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--deep-white);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .visit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--lime-green);
+    transition: gap 0.25s;
+  }
+
+  .bento-card:hover .visit-btn {
+    gap: 10px;
+  }
+
+  /* Corner accent */
+  .corner-accent {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(225deg, rgba(203, 232, 80, 0.15) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .bento-card:hover .corner-accent {
+    opacity: 1;
+  }
+
+  /* CTA */
+  .final-cta {
+    padding: 0 var(--space-lg) var(--space-2xl);
+    background: var(--deep-ocean);
+  }
+
+  .cta-box {
+    position: relative;
+    text-align: center;
+    padding: var(--space-2xl) var(--space-lg);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    max-width: 700px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: -60%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(203, 232, 80, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-tag {
+    color: var(--lime-green);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-sm);
+    position: relative;
+  }
+
+  .cta-box h2 {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+    position: relative;
+  }
+
+  .cta-desc {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: var(--space-lg);
+    position: relative;
+  }
+
+  .cta-actions {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--lime-green);
+    color: var(--deep-ocean);
+    padding: 16px 36px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition: transform 0.2s, box-shadow 0.2s, gap 0.2s;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(203, 232, 80, 0.3);
+    gap: 12px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .page-hero {
+      padding-top: 120px;
+      padding-bottom: 40px;
+    }
+
+    .bento-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .filters {
+      gap: 6px;
+    }
+
+    .filter-btn {
+      padding: 6px 14px;
+      font-size: 0.75rem;
+    }
+
+    .card-overlay {
+      opacity: 1;
+      background: linear-gradient(
+        to top,
+        rgba(10, 10, 10, 0.9) 0%,
+        rgba(10, 10, 10, 0.3) 50%,
+        transparent 100%
+      );
+    }
+
+    .overlay-content {
+      transform: translateY(0);
+    }
+  }
+</style>

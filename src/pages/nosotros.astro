@@ -7,141 +7,182 @@ import Footer from '../components/Footer.astro';
 <Layout title="Nosotros — Parzik">
   <Navbar />
 
+  <!-- Hero -->
   <section class="page-hero">
     <div class="hero-bg">
       <div class="circle circle-1"></div>
       <div class="circle circle-2"></div>
+      <div class="circle circle-3"></div>
     </div>
     <div class="container">
       <p class="tag" data-animate="blur">Quienes somos</p>
-      <h1 data-animate="fade-up" data-delay="100">Tecnología con propósito</h1>
-      <p class="subtitle" data-animate="fade-up" data-delay="200">Somos una agencia híbrida que une desarrollo de software y marketing digital para crear soluciones que realmente impactan.</p>
+      <h1 data-animate="fade-up" data-delay="100">No somos una agencia más.<br /><span class="highlight">Somos tu equipo técnico.</span></h1>
+      <p class="subtitle" data-animate="fade-up" data-delay="200">Desarrollamos software con propósito: que tu negocio crezca, opere mejor y se destaque.</p>
     </div>
   </section>
 
-  <section class="mission">
+  <!-- Stats inline -->
+  <section class="stats-bar">
     <div class="container">
-      <div class="mission-grid">
-        <div class="mission-card" data-animate="fade-up">
-          <div class="mission-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-          </div>
-          <h3>Misión</h3>
-          <p>Impulsar negocios a través de soluciones digitales integrales que combinan la precisión del software con la creatividad del marketing.</p>
+      <div class="stats-row" data-stagger>
+        <div class="stat-pill">
+          <span class="stat-val">3+</span>
+          <span class="stat-txt">Años</span>
         </div>
-        <div class="mission-card" data-animate="fade-up" data-delay="100">
-          <div class="mission-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </div>
-          <h3>Visión</h3>
-          <p>Ser la agencia de referencia en Latinoamérica donde tecnología y marketing convergen para transformar empresas.</p>
+        <div class="stat-divider"></div>
+        <div class="stat-pill">
+          <span class="stat-val">50+</span>
+          <span class="stat-txt">Proyectos</span>
         </div>
-        <div class="mission-card" data-animate="fade-up" data-delay="200">
-          <div class="mission-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <h3>Valores</h3>
-          <p>Precisión, innovación, transparencia y compromiso con resultados medibles para cada cliente.</p>
+        <div class="stat-divider"></div>
+        <div class="stat-pill">
+          <span class="stat-val">30+</span>
+          <span class="stat-txt">Clientes</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-pill">
+          <span class="stat-val">99.9%</span>
+          <span class="stat-txt">Uptime</span>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Historia - layout horizontal -->
   <section class="story">
     <div class="container">
-      <div class="story-grid">
-        <div class="story-text" data-animate="fade-left">
+      <div class="story-layout" data-animate="fade-up">
+        <div class="story-left">
           <p class="tag">Nuestra historia</p>
-          <h2>Nacimos de la necesidad de hacer las cosas <span class="highlight">diferente</span></h2>
-          <p class="story-desc">Parzik nació cuando un grupo de desarrolladores y estrategas de marketing se dieron cuenta de que los mejores resultados digitales ocurren cuando código y creatividad trabajan juntos desde el día uno.</p>
-          <p class="story-desc">No somos una agencia de marketing que subcontrata desarrollo, ni un estudio de software que ignora la estrategia. Somos ambos, integrados en un solo equipo.</p>
+          <h2>Nacimos para hacer las cosas <span class="highlight">diferente</span></h2>
         </div>
-        <div class="story-stats" data-animate="fade-right">
-          <div class="big-stat">
-            <span class="big-num">3+</span>
-            <span class="big-label">Años construyendo soluciones digitales</span>
-          </div>
-          <div class="big-stat">
-            <span class="big-num">50+</span>
-            <span class="big-label">Proyectos entregados exitosamente</span>
-          </div>
-          <div class="big-stat">
-            <span class="big-num">30+</span>
-            <span class="big-label">Clientes que confían en nosotros</span>
-          </div>
+        <div class="story-right">
+          <p>Parzik nació cuando un grupo de desarrolladores descubrió que los mejores resultados digitales ocurren cuando código y estrategia trabajan juntos desde el día uno.</p>
+          <p>No somos un estudio que solo ejecuta. Somos un equipo que entiende tu negocio, propone soluciones y las construye contigo.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Lo que nos mueve - misión/visión en formato moderno -->
+  <section class="pillars">
+    <div class="container">
+      <div class="pillars-grid" data-stagger>
+        <div class="pillar-card large">
+          <div class="pillar-label">Misión</div>
+          <h3>Impulsar negocios a través de software que resuelve problemas reales</h3>
+          <p>Cada línea de código que escribimos tiene un objetivo: que tu empresa funcione mejor, venda más o escale sin fricciones.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-label">Visión</div>
+          <h3>Ser la agencia de software de referencia en Latinoamérica</h3>
+          <p>Donde tecnología y estrategia se unen para transformar empresas.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-label">Enfoque</div>
+          <h3>Resultados medibles, no promesas vacías</h3>
+          <p>Si no se puede medir, no lo hacemos. Cada proyecto tiene KPIs claros.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Diferenciadores - scroll horizontal feel -->
+  <section class="differentiators">
+    <div class="container">
+      <div class="diff-header" data-animate="fade-up">
+        <p class="tag">¿Por qué Parzik?</p>
+        <h2>Lo que nos hace <span class="highlight">diferentes</span></h2>
+      </div>
+      <div class="diff-grid" data-stagger>
+        <div class="diff-card">
+          <div class="diff-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Equipo integrado</h3>
+          <p>Desarrolladores y estrategas trabajando juntos. No subcontratamos, no improvisamos.</p>
+        </div>
+        <div class="diff-card">
+          <div class="diff-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>Velocidad real</h3>
+          <p>Entregamos en semanas, no en meses. Sprints cortos con avances visibles desde la primera semana.</p>
+        </div>
+        <div class="diff-card">
+          <div class="diff-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Transparencia total</h3>
+          <p>Sabes exactamente en qué va tu proyecto, cuánto cuesta y qué sigue. Sin sorpresas.</p>
+        </div>
+        <div class="diff-card">
+          <div class="diff-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3>Tecnología moderna</h3>
+          <p>Usamos las herramientas más actuales para que tu producto sea rápido, seguro y escalable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Equipo -->
   <section class="team">
     <div class="container">
-      <p class="tag" data-animate="fade-up">El equipo</p>
-      <h2 data-animate="fade-up" data-delay="100">Las personas detrás de Parzik</h2>
+      <div class="team-header" data-animate="fade-up">
+        <p class="tag">El equipo</p>
+        <h2>Las personas detrás de <span class="highlight">Parzik</span></h2>
+        <p class="team-sub">Un equipo pequeño que se mueve rápido y entrega grande.</p>
+      </div>
       <div class="team-grid" data-stagger>
         <div class="team-card">
           <div class="team-photo"><img src="/team/member1.jpg" alt="Carlos Méndez" /></div>
-          <h3>Carlos Méndez</h3>
-          <span class="team-role">CEO & Fundador</span>
-          <p>Estrategia digital y desarrollo de producto con +8 años de experiencia.</p>
+          <div class="team-info">
+            <h3>Carlos Méndez</h3>
+            <span class="team-role">CEO & Fundador</span>
+            <p>Estrategia digital y desarrollo de producto con +8 años de experiencia.</p>
+          </div>
         </div>
         <div class="team-card">
           <div class="team-photo"><img src="/team/member2.jpg" alt="Laura Ríos" /></div>
-          <h3>Laura Ríos</h3>
-          <span class="team-role">Directora de Marketing</span>
-          <p>Growth marketing, pauta digital y estrategias de adquisición de clientes.</p>
+          <div class="team-info">
+            <h3>Laura Ríos</h3>
+            <span class="team-role">Directora de Estrategia</span>
+            <p>Estrategia digital, gestión de proyectos y adquisición de clientes.</p>
+          </div>
         </div>
         <div class="team-card">
           <div class="team-photo"><img src="/team/member3.jpg" alt="Diego Vargas" /></div>
-          <h3>Diego Vargas</h3>
-          <span class="team-role">Lead Developer</span>
-          <p>Arquitectura de software, full-stack development y DevOps.</p>
+          <div class="team-info">
+            <h3>Diego Vargas</h3>
+            <span class="team-role">Lead Developer</span>
+            <p>Arquitectura de software, full-stack development y DevOps.</p>
+          </div>
         </div>
         <div class="team-card">
           <div class="team-photo"><img src="/team/member4.jpg" alt="Ana Torres" /></div>
-          <h3>Ana Torres</h3>
-          <span class="team-role">Directora Creativa</span>
-          <p>Branding, UI/UX design y sistemas de diseño escalables.</p>
+          <div class="team-info">
+            <h3>Ana Torres</h3>
+            <span class="team-role">Directora Creativa</span>
+            <p>Branding, UI/UX design y sistemas de diseño escalables.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="values">
-    <div class="container">
-      <p class="tag" data-animate="fade-up">Por qué elegirnos</p>
-      <h2 data-animate="fade-up" data-delay="100">Lo que nos hace diferentes</h2>
-      <div class="values-grid" data-stagger>
-        <div class="value-card">
-          <div class="value-num">01</div>
-          <h3>Equipo integrado</h3>
-          <p>Desarrolladores y marketers trabajando juntos, no en silos separados.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-num">02</div>
-          <h3>Resultados medibles</h3>
-          <p>Cada proyecto tiene KPIs claros. Si no se puede medir, no lo hacemos.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-num">03</div>
-          <h3>Tecnología moderna</h3>
-          <p>Usamos las herramientas más actuales para entregar productos rápidos y escalables.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-num">04</div>
-          <h3>Transparencia total</h3>
-          <p>Comunicación directa, reportes claros y sin sorpresas en el proceso.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <!-- CTA -->
   <section class="cta-section">
     <div class="container">
       <div class="cta-card" data-animate="scale">
+        <p class="tag">Da el primer paso</p>
         <h2>Trabajemos juntos</h2>
-        <p>Queremos conocer tu proyecto y mostrarte cómo podemos ayudarte a crecer.</p>
-        <a href="/contacto" class="btn-primary">Agenda una llamada</a>
+        <p class="cta-sub">Queremos conocer tu proyecto y mostrarte cómo podemos ayudarte a crecer.</p>
+        <div class="cta-actions">
+          <a href="/cotizador" class="btn-primary">Cotiza tu proyecto</a>
+          <a href="mailto:hola@parzik.com" class="btn-secondary">Escríbenos</a>
+        </div>
       </div>
     </div>
   </section>
@@ -159,7 +200,8 @@ import Footer from '../components/Footer.astro';
     color: var(--lime-green);
     font-size: 0.8125rem;
     font-weight: 600;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     margin-bottom: var(--space-xs);
   }
 
@@ -167,7 +209,7 @@ import Footer from '../components/Footer.astro';
     color: var(--lime-green);
   }
 
-  /* Hero BG */
+  /* Hero */
   .hero-bg {
     position: absolute;
     inset: 0;
@@ -182,198 +224,323 @@ import Footer from '../components/Footer.astro';
   }
 
   .circle-1 {
-    width: 400px;
-    height: 400px;
-    top: -100px;
-    right: -80px;
+    width: 450px;
+    height: 450px;
+    top: -120px;
+    right: -100px;
     opacity: 0.04;
   }
 
   .circle-2 {
-    width: 250px;
-    height: 250px;
-    bottom: -40px;
-    left: -60px;
+    width: 300px;
+    height: 300px;
+    bottom: -60px;
+    left: -80px;
     opacity: 0.03;
   }
 
-  /* Page Hero */
+  .circle-3 {
+    width: 180px;
+    height: 180px;
+    top: 50%;
+    left: 60%;
+    opacity: 0.02;
+  }
+
   .page-hero {
     position: relative;
-    padding: 140px var(--space-lg) var(--space-2xl);
+    padding: 140px var(--space-lg) var(--space-xl);
     text-align: center;
     background: linear-gradient(180deg, #0A0A0A 0%, #111219 100%);
     overflow: hidden;
   }
 
   .page-hero h1 {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
     font-weight: 700;
     margin-bottom: var(--space-sm);
+    line-height: 1.2;
   }
 
   .subtitle {
     color: rgba(255, 255, 255, 0.5);
     font-size: 1.0625rem;
-    max-width: 540px;
+    max-width: 500px;
     margin: 0 auto;
     font-weight: 300;
     line-height: 1.7;
   }
 
-  /* Mission */
-  .mission {
-    padding: var(--space-2xl) var(--space-lg);
+  /* Stats Bar */
+  .stats-bar {
+    padding: var(--space-lg) var(--space-lg);
+    background: linear-gradient(180deg, #111219 0%, #0A0A0A 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  .mission-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-md);
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
   }
 
-  .mission-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 14px;
-    padding: var(--space-lg);
-    transition: border-color 0.3s, background 0.3s;
+  .stat-pill {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
   }
 
-  .mission-card:hover {
-    border-color: rgba(203, 232, 80, 0.15);
-    background: rgba(203, 232, 80, 0.03);
-  }
-
-  .mission-icon {
+  .stat-val {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
     color: var(--lime-green);
-    margin-bottom: var(--space-sm);
   }
 
-  .mission-card h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: var(--space-xs);
-  }
-
-  .mission-card p {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.9375rem;
-    line-height: 1.7;
+  .stat-txt {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.875rem;
     font-weight: 300;
+  }
+
+  .stat-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.1);
   }
 
   /* Story */
   .story {
-    padding: var(--space-xl) var(--space-lg) var(--space-2xl);
-    background: radial-gradient(ellipse at 30% 50%, rgba(203, 232, 80, 0.02) 0%, transparent 60%);
+    padding: var(--space-2xl) var(--space-lg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  .story-grid {
+  .story-layout {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-columns: 1fr 1fr;
     gap: var(--space-2xl);
-    align-items: center;
+    align-items: start;
   }
 
-  .story-text h2 {
-    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  .story-left h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
     font-weight: 700;
-    margin-bottom: var(--space-md);
-    line-height: 1.3;
+    line-height: 1.25;
   }
 
-  .story-desc {
-    color: rgba(255, 255, 255, 0.55);
-    font-size: 0.9375rem;
+  .story-right p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1rem;
     line-height: 1.8;
     font-weight: 300;
     margin-bottom: var(--space-sm);
   }
 
-  .story-stats {
+  .story-right p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Pillars */
+  .pillars {
+    padding: var(--space-2xl) var(--space-lg);
+    background: radial-gradient(ellipse at 20% 50%, rgba(203, 232, 80, 0.02) 0%, transparent 60%);
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: var(--space-md);
+  }
+
+  .pillar-card {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+    padding: var(--space-xl) var(--space-lg);
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pillar-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--lime-green), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .pillar-card:hover {
+    border-color: rgba(203, 232, 80, 0.15);
+    transform: translateY(-3px);
+  }
+
+  .pillar-card:hover::before {
+    opacity: 1;
+  }
+
+  .pillar-card.large {
+    grid-row: 1 / 3;
     display: flex;
     flex-direction: column;
-    gap: var(--space-lg);
+    justify-content: center;
   }
 
-  .big-stat {
-    padding: var(--space-md);
+  .pillar-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--lime-green);
+    margin-bottom: var(--space-sm);
+    opacity: 0.8;
+  }
+
+  .pillar-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+    line-height: 1.35;
+  }
+
+  .pillar-card.large h3 {
+    font-size: 1.5rem;
+  }
+
+  .pillar-card p {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* Differentiators */
+  .differentiators {
+    padding: var(--space-2xl) var(--space-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .diff-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .diff-header h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+  }
+
+  .diff-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  .diff-card {
+    padding: var(--space-lg);
+    border-radius: 14px;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, transform 0.3s, background 0.3s;
   }
 
-  .big-stat:hover {
-    border-color: rgba(203, 232, 80, 0.15);
+  .diff-card:hover {
+    border-color: rgba(203, 232, 80, 0.2);
+    transform: translateY(-4px);
+    background: rgba(203, 232, 80, 0.03);
   }
 
-  .big-num {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 2.5rem;
-    font-weight: 700;
+  .diff-icon {
     color: var(--lime-green);
-    line-height: 1;
-    margin-bottom: 4px;
+    margin-bottom: var(--space-md);
   }
 
-  .big-label {
+  .diff-card h3 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+  }
+
+  .diff-card p {
     color: rgba(255, 255, 255, 0.45);
     font-size: 0.875rem;
+    line-height: 1.65;
     font-weight: 300;
   }
 
   /* Team */
   .team {
     padding: var(--space-2xl) var(--space-lg);
+    background: linear-gradient(180deg, rgba(17, 18, 25, 0.3) 0%, transparent 100%);
     border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  .team h2 {
+  .team-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .team-header h2 {
     font-size: clamp(1.75rem, 3.5vw, 2.25rem);
     font-weight: 700;
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-xs);
+  }
+
+  .team-sub {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.9375rem;
+    font-weight: 300;
   }
 
   .team-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-md);
   }
 
   .team-card {
-    text-align: center;
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+    padding: var(--space-md);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .team-card:hover {
+    border-color: rgba(203, 232, 80, 0.15);
+    background: rgba(255, 255, 255, 0.03);
   }
 
   .team-photo {
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: 14px;
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
     overflow: hidden;
-    margin-bottom: var(--space-sm);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    transition: border-color 0.3s;
-  }
-
-  .team-card:hover .team-photo {
-    border-color: rgba(203, 232, 80, 0.2);
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .team-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(30%);
-    transition: filter 0.4s;
+    filter: grayscale(20%);
+    transition: filter 0.3s;
   }
 
   .team-card:hover .team-photo img {
     filter: grayscale(0%);
   }
 
-  .team-card h3 {
+  .team-info h3 {
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: 2px;
@@ -382,68 +549,16 @@ import Footer from '../components/Footer.astro';
   .team-role {
     display: block;
     color: var(--lime-green);
-    font-size: 0.8125rem;
-    font-weight: 500;
-    margin-bottom: var(--space-xs);
-  }
-
-  .team-card p {
-    color: rgba(255, 255, 255, 0.45);
-    font-size: 0.8125rem;
-    line-height: 1.6;
-    font-weight: 300;
-  }
-
-  /* Values */
-  .values {
-    padding: var(--space-2xl) var(--space-lg);
-    background: linear-gradient(180deg, rgba(17, 18, 25, 0.5) 0%, #0A0A0A 100%);
-  }
-
-  .values h2 {
-    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
-    font-weight: 700;
-    margin-bottom: var(--space-xl);
-  }
-
-  .values-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-md);
-  }
-
-  .value-card {
-    padding: var(--space-lg);
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 14px;
-    transition: border-color 0.3s, transform 0.3s, background 0.3s;
-  }
-
-  .value-card:hover {
-    border-color: rgba(203, 232, 80, 0.15);
-    transform: translateY(-4px);
-    background: rgba(203, 232, 80, 0.03);
-  }
-
-  .value-num {
-    font-family: var(--font-heading);
-    font-size: 0.875rem;
-    color: var(--lime-green);
-    font-weight: 700;
-    margin-bottom: var(--space-xs);
-  }
-
-  .value-card h3 {
-    font-size: 1.125rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    margin-bottom: var(--space-xs);
+    letter-spacing: 0.03em;
+    margin-bottom: 4px;
   }
 
-  .value-card p {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.9375rem;
-    line-height: 1.6;
+  .team-info p {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.8125rem;
+    line-height: 1.5;
     font-weight: 300;
   }
 
@@ -453,9 +568,9 @@ import Footer from '../components/Footer.astro';
   }
 
   .cta-card {
-    background: linear-gradient(135deg, rgba(203, 232, 80, 0.04) 0%, rgba(255, 255, 255, 0.02) 100%);
-    border: 1px solid rgba(203, 232, 80, 0.1);
-    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(203, 232, 80, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(203, 232, 80, 0.12);
+    border-radius: 20px;
     padding: var(--space-2xl);
     text-align: center;
     position: relative;
@@ -465,10 +580,11 @@ import Footer from '../components/Footer.astro';
   .cta-card::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -20%;
-    width: 300px;
-    height: 300px;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 400px;
     background: radial-gradient(circle, rgba(203, 232, 80, 0.06) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
@@ -477,14 +593,21 @@ import Footer from '../components/Footer.astro';
   .cta-card h2 {
     font-size: clamp(1.75rem, 3.5vw, 2.25rem);
     font-weight: 700;
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-xs);
   }
 
-  .cta-card p {
-    color: rgba(255, 255, 255, 0.55);
+  .cta-sub {
+    color: rgba(255, 255, 255, 0.5);
     font-size: 1rem;
-    margin-bottom: var(--space-lg);
     font-weight: 300;
+    margin-bottom: var(--space-lg);
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .btn-primary {
@@ -503,21 +626,62 @@ import Footer from '../components/Footer.astro';
     box-shadow: 0 8px 24px rgba(203, 232, 80, 0.25);
   }
 
+  .btn-secondary {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 14px 32px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #fff;
+  }
+
+  /* Responsive */
   @media (max-width: 768px) {
-    .mission-grid {
+    .stats-row {
+      gap: var(--space-md);
+    }
+
+    .stat-divider {
+      display: none;
+    }
+
+    .story-layout {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .pillars-grid {
       grid-template-columns: 1fr;
     }
 
-    .story-grid {
-      grid-template-columns: 1fr;
+    .pillar-card.large {
+      grid-row: auto;
     }
 
-    .team-grid {
+    .diff-grid {
       grid-template-columns: 1fr 1fr;
     }
 
-    .values-grid {
+    .team-grid {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .diff-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stats-row {
+      flex-direction: column;
+      gap: var(--space-sm);
     }
   }
 </style>

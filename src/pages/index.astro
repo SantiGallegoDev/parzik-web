@@ -13,18 +13,86 @@ function formatPrice(num: number) {
 }
 ---
 
-<Layout title="Parzik — Software + Marketing">
+<Layout title="Parzik — Software & Soluciones Digitales">
   <Navbar />
   <Hero />
   <Services />
+
+  <section class="process">
+    <div class="container">
+      <div class="process-header">
+        <p class="section-tag" data-animate="fade-up">Proceso</p>
+        <h2 data-animate="fade-up" data-delay="100">¿Cómo funciona <span class="highlight">Parzik</span>?</h2>
+        <p class="process-sub" data-animate="fade-up" data-delay="200">
+          Así convertimos tu idea en una solución real. Desde el primer contacto hasta la entrega final, trabajamos contigo de forma clara, ágil y estructurada.
+        </p>
+      </div>
+
+      <div class="process-timeline">
+        <div class="timeline-line" data-animate="fade-up"></div>
+
+        <div class="process-step" data-animate="fade-up" data-delay="100">
+          <div class="step-indicator">
+            <span class="step-dot"></span>
+            <span class="step-number-bg">01</span>
+          </div>
+          <div class="step-card">
+            <div class="step-label">Paso 01</div>
+            <h3>Reunión de contexto</h3>
+            <p class="step-highlight">Exploramos tu idea, necesidades y visión.</p>
+            <p class="step-desc">Agendamos una sesión contigo para entender tu proyecto, tus metas y los retos que quieres resolver. Esta etapa nos permite definir el enfoque más eficaz y la solución adecuada.</p>
+          </div>
+        </div>
+
+        <div class="process-step" data-animate="fade-up" data-delay="200">
+          <div class="step-indicator">
+            <span class="step-dot"></span>
+            <span class="step-number-bg">02</span>
+          </div>
+          <div class="step-card">
+            <div class="step-label">Paso 02</div>
+            <h3>Planificación y propuesta técnica</h3>
+            <p class="step-highlight">Convertimos tus objetivos en un plan de desarrollo.</p>
+            <p class="step-desc">Creamos una hoja de ruta detallada con tiempos, funcionalidades clave, stack tecnológico y fases del proyecto. Recibes una propuesta clara y personalizada.</p>
+          </div>
+        </div>
+
+        <div class="process-step" data-animate="fade-up" data-delay="300">
+          <div class="step-indicator">
+            <span class="step-dot"></span>
+            <span class="step-number-bg">03</span>
+          </div>
+          <div class="step-card">
+            <div class="step-label">Paso 03</div>
+            <h3>Desarrollo ágil y validaciones</h3>
+            <p class="step-highlight">Construimos contigo, paso a paso.</p>
+            <p class="step-desc">Desarrollamos en ciclos cortos, mostrando avances frecuentes para validar el rumbo y hacer los ajustes necesarios a tiempo. Tú participas activamente sin complicarte.</p>
+          </div>
+        </div>
+
+        <div class="process-step" data-animate="fade-up" data-delay="400">
+          <div class="step-indicator">
+            <span class="step-dot"></span>
+            <span class="step-number-bg">04</span>
+          </div>
+          <div class="step-card">
+            <div class="step-label">Paso 04</div>
+            <h3>Entrega, soporte y evolución</h3>
+            <p class="step-highlight">Te entregamos una solución lista para crecer.</p>
+            <p class="step-desc">Finalizamos el proyecto, lo ponemos en marcha y te brindamos acompañamiento para escalar, mantener y mejorar con el tiempo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section id="nosotros" class="about">
     <div class="container">
       <p class="section-tag" data-animate="fade-up">Quienes somos</p>
       <h2 data-animate="fade-up" data-delay="100">Tecnología y creatividad<br /><span class="highlight">en un solo equipo</span></h2>
       <p class="about-text" data-animate="fade-up" data-delay="200">
-        Somos una agencia híbrida que une el desarrollo de software con estrategias de marketing digital.
-        Creamos soluciones integrales que conectan tecnología con resultados de negocio.
+        Somos una agencia de desarrollo de software que crea soluciones integrales.
+        Conectamos tecnología con resultados de negocio.
       </p>
       <div class="stats" data-stagger>
         <div class="stat">
@@ -100,6 +168,221 @@ function formatPrice(num: number) {
 
   .highlight {
     color: var(--lime-green);
+  }
+
+  /* Process */
+  .process {
+    padding: var(--space-2xl) var(--space-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .process::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(203, 232, 80, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .process-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .process-header .section-tag {
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  .process h2 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+  }
+
+  .process-sub {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 1.0625rem;
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .process-timeline {
+    position: relative;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: 28px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(203, 232, 80, 0.3) 10%,
+      rgba(203, 232, 80, 0.3) 90%,
+      transparent
+    );
+  }
+
+  .process-step {
+    position: relative;
+    display: flex;
+    gap: var(--space-lg);
+    padding-bottom: var(--space-xl);
+  }
+
+  .process-step:last-child {
+    padding-bottom: 0;
+  }
+
+  .step-indicator {
+    position: relative;
+    flex-shrink: 0;
+    width: 58px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: var(--space-lg);
+  }
+
+  .step-dot {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--lime-green);
+    z-index: 2;
+    box-shadow: 0 0 16px rgba(203, 232, 80, 0.5), 0 0 40px rgba(203, 232, 80, 0.15);
+  }
+
+  .step-dot::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 2px solid rgba(203, 232, 80, 0.25);
+  }
+
+  .step-number-bg {
+    position: absolute;
+    font-family: var(--font-heading);
+    font-size: 5rem;
+    font-weight: 800;
+    color: rgba(203, 232, 80, 0.04);
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .step-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.025);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+    padding: var(--space-lg) var(--space-xl);
+    transition: border-color 0.4s, transform 0.4s, box-shadow 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .step-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(203, 232, 80, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .step-card:hover {
+    border-color: rgba(203, 232, 80, 0.2);
+    transform: translateX(6px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 60px rgba(203, 232, 80, 0.04);
+  }
+
+  .step-card:hover::before {
+    opacity: 1;
+  }
+
+  .step-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--lime-green);
+    margin-bottom: var(--space-xs);
+    opacity: 0.8;
+  }
+
+  .step-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .step-highlight {
+    color: rgba(203, 232, 80, 0.7);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: var(--space-sm);
+  }
+
+  .step-desc {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.875rem;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  @media (max-width: 768px) {
+    .timeline-line {
+      left: 18px;
+    }
+
+    .step-indicator {
+      width: 38px;
+    }
+
+    .step-dot {
+      width: 10px;
+      height: 10px;
+    }
+
+    .step-dot::before {
+      inset: -4px;
+    }
+
+    .step-number-bg {
+      font-size: 3.5rem;
+    }
+
+    .step-card {
+      padding: var(--space-md);
+    }
+
+    .process-step {
+      gap: var(--space-sm);
+    }
   }
 
   /* About */
