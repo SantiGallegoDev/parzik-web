@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
 import Services from '../components/Services.astro';
 import Footer from '../components/Footer.astro';
+import ClientCarousel from '../components/ClientCarousel.astro';
 import config from '../data/cotizador-config.json';
 
 const plans = config.steps[0].options;
@@ -110,6 +111,8 @@ function formatPrice(num: number) {
       </div>
     </div>
   </section>
+
+  <ClientCarousel />
 
   <section class="plans">
     <div class="container">
