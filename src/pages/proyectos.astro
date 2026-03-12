@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import Globe from '../components/Globe.astro';
 
 const projects = [
   {
@@ -98,16 +99,27 @@ const categories = ["Todos", ...new Set(projects.map(p => p.category))];
       <div class="glow glow-2"></div>
     </div>
     <div class="container">
-      <p class="tag" data-animate="blur">Portafolio</p>
-      <h1 data-animate="fade-up" data-delay="100">
-        Cada pixel,<br /><span class="highlight">cada línea de código</span>
-      </h1>
-      <p class="subtitle" data-animate="fade-up" data-delay="200">
-        +50 proyectos entregados. Estas son algunas de las soluciones digitales que hemos construido.
-      </p>
+      <div class="hero-split">
+        <div class="hero-text">
+          <p class="tag" data-animate="blur">Portafolio</p>
+          <h1 data-animate="fade-up" data-delay="100">
+            Cada pixel,<br /><span class="highlight">cada línea de código</span>
+          </h1>
+          <p class="subtitle" data-animate="fade-up" data-delay="200">
+            +50 proyectos entregados. Estas son algunas de las soluciones digitales que hemos construido.
+          </p>
+          <div class="globe-reach" data-animate="fade-up" data-delay="250">
+            <span class="reach-line"></span>
+            <span class="reach-text">Clientes en USA, Colombia, Ecuador y Panamá</span>
+          </div>
+        </div>
+        <div class="hero-globe" data-animate="fade-up" data-delay="300">
+          <Globe />
+        </div>
+      </div>
 
       <!-- Category filters -->
-      <div class="filters" data-animate="fade-up" data-delay="300">
+      <div class="filters" data-animate="fade-up" data-delay="400">
         {categories.map((cat, i) => (
           <button class={`filter-btn ${i === 0 ? 'active' : ''}`} data-filter={cat}>
             {cat}
@@ -221,10 +233,53 @@ const categories = ["Todos", ...new Set(projects.map(p => p.category))];
   /* Hero */
   .page-hero {
     position: relative;
-    padding: 160px var(--space-lg) 60px;
-    text-align: center;
-    overflow: hidden;
+    padding: 140px var(--space-lg) 40px;
+    overflow: visible;
     background: var(--deep-ocean);
+  }
+
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--space-md);
+    align-items: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero-text {
+    text-align: left;
+  }
+
+  .hero-globe {
+    position: relative;
+    height: 400px;
+    overflow: visible;
+  }
+
+  .globe-reach {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+  }
+
+  .reach-line {
+    width: 32px;
+    height: 2px;
+    background: var(--lime-green);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .reach-text {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  .filters {
+    text-align: center;
   }
 
   .hero-bg {
@@ -307,7 +362,7 @@ const categories = ["Todos", ...new Set(projects.map(p => p.category))];
     font-size: 1.125rem;
     color: rgba(255, 255, 255, 0.55);
     max-width: 480px;
-    margin: 0 auto var(--space-xl);
+    margin: 0 0 0 0;
     line-height: 1.7;
     font-weight: 300;
   }
@@ -571,6 +626,28 @@ const categories = ["Todos", ...new Set(projects.map(p => p.category))];
     .page-hero {
       padding-top: 120px;
       padding-bottom: 40px;
+    }
+
+    .hero-split {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .hero-text {
+      text-align: center;
+    }
+
+    .hero-globe {
+      height: 320px;
+      order: -1;
+    }
+
+    .globe-reach {
+      justify-content: center;
+    }
+
+    .subtitle {
+      margin: 0 auto;
     }
 
     .bento-grid {

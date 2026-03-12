@@ -1,0 +1,425 @@
+---
+// Globe component — 3D earth with country borders and markers
+---
+
+<div class="globe-outer">
+  <div class="globe-glow"></div>
+  <div class="globe-wrapper" id="globe-wrapper">
+    <canvas id="globe-canvas"></canvas>
+    <div class="globe-labels" id="globe-labels"></div>
+  </div>
+</div>
+
+<script>
+  import * as THREE from 'three';
+  import * as topojson from 'topojson-client';
+
+  const COUNTRIES = [
+    { name: 'USA', lat: 38.9, lng: -77.0, flag: '🇺🇸' },
+    { name: 'Colombia', lat: 4.6, lng: -74.1, flag: '🇨🇴' },
+    { name: 'Ecuador', lat: -0.2, lng: -78.5, flag: '🇪🇨' },
+    { name: 'Panamá', lat: 9.0, lng: -79.5, flag: '🇵🇦' },
+  ];
+
+  const LIME = new THREE.Color(0xcbe850);
+  const GLOBE_RADIUS = 1;
+  const TARGET_ROT_Y = -0.4;
+  const TARGET_ROT_X = 0.25;
+
+  function latLngToVec3(lat: number, lng: number, radius: number): THREE.Vector3 {
+    const phi = (90 - lat) * (Math.PI / 180);
+    const theta = (lng + 180) * (Math.PI / 180);
+    return new THREE.Vector3(
+      -radius * Math.sin(phi) * Math.cos(theta),
+      radius * Math.cos(phi),
+      radius * Math.sin(phi) * Math.sin(theta)
+    );
+  }
+
+  function createArcPoints(p1: THREE.Vector3, p2: THREE.Vector3, segments = 50): THREE.Vector3[] {
+    const points: THREE.Vector3[] = [];
+    const n1 = p1.clone().normalize();
+    const n2 = p2.clone().normalize();
+    const angle = n1.angleTo(n2);
+    const dist = p1.distanceTo(p2);
+    const r = GLOBE_RADIUS + 0.005;
+
+    for (let i = 0; i <= segments; i++) {
+      const t = i / segments;
+      // True slerp on unit sphere
+      const sinA = Math.sin(angle);
+      const dir = n1.clone().multiplyScalar(Math.sin((1 - t) * angle) / sinA)
+        .add(n2.clone().multiplyScalar(Math.sin(t * angle) / sinA));
+      // Elevation: arc above surface, peaks at middle
+      const elevation = Math.sin(t * Math.PI) * dist * 0.25;
+      dir.multiplyScalar(r + elevation);
+      points.push(dir);
+    }
+    return points;
+  }
+
+  function drawBordersOnCanvas(features: any[]): HTMLCanvasElement {
+    const canvas = document.createElement('canvas');
+    canvas.width = 2048;
+    canvas.height = 1024;
+    const ctx = canvas.getContext('2d')!;
+
+    ctx.fillStyle = '#0c0c0c';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw continent fills first
+    ctx.fillStyle = 'rgba(203, 232, 80, 0.06)';
+    features.forEach((feature: any) => {
+      const geom = feature.geometry;
+      if (!geom) return;
+      const polygons = geom.type === 'Polygon' ? [geom.coordinates] : geom.type === 'MultiPolygon' ? geom.coordinates : [];
+      polygons.forEach((polygon: number[][][]) => {
+        polygon.forEach((ring: number[][]) => {
+          ctx.beginPath();
+          ring.forEach((coord: number[], j: number) => {
+            const x = ((coord[0] + 180) / 360) * canvas.width;
+            const y = ((90 - coord[1]) / 180) * canvas.height;
+            if (j === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          });
+          ctx.closePath();
+          ctx.fill();
+        });
+      });
+    });
+
+    // Draw borders on top
+    ctx.strokeStyle = 'rgba(203, 232, 80, 0.2)';
+    ctx.lineWidth = 0.6;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    features.forEach((feature: any) => {
+      const geom = feature.geometry;
+      if (!geom) return;
+      const polygons = geom.type === 'Polygon' ? [geom.coordinates] : geom.type === 'MultiPolygon' ? geom.coordinates : [];
+      polygons.forEach((polygon: number[][][]) => {
+        polygon.forEach((ring: number[][]) => {
+          ctx.beginPath();
+          ring.forEach((coord: number[], j: number) => {
+            const x = ((coord[0] + 180) / 360) * canvas.width;
+            const y = ((90 - coord[1]) / 180) * canvas.height;
+            if (j === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          });
+          ctx.stroke();
+        });
+      });
+    });
+
+    return canvas;
+  }
+
+  async function init() {
+    const wrapper = document.getElementById('globe-wrapper')!;
+    const canvas = document.getElementById('globe-canvas') as HTMLCanvasElement;
+    const labelsContainer = document.getElementById('globe-labels')!;
+
+    const width = wrapper.clientWidth;
+    const height = wrapper.clientHeight;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setClearColor(0x000000, 0);
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+    camera.position.z = 2.6;
+
+    // ── Earth texture from topojson ──
+    let earthTexture: THREE.Texture | null = null;
+    try {
+      const res = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+      const world = await res.json();
+      const countries = (topojson as any).feature(world, world.objects.countries);
+      const texCanvas = drawBordersOnCanvas(countries.features);
+      earthTexture = new THREE.CanvasTexture(texCanvas);
+      earthTexture.minFilter = THREE.LinearFilter;
+      earthTexture.magFilter = THREE.LinearFilter;
+      earthTexture.generateMipmaps = false;
+    } catch (e) {
+      // Fallback: plain dark globe
+    }
+
+    // ── Globe ──
+    const globeGeo = new THREE.SphereGeometry(GLOBE_RADIUS, 128, 128);
+    const globeMat = new THREE.MeshPhongMaterial({
+      map: earthTexture || undefined,
+      color: earthTexture ? 0xffffff : 0x111111,
+      emissive: 0x030303,
+      shininess: 5,
+    });
+    const globe = new THREE.Mesh(globeGeo, globeMat);
+    scene.add(globe);
+
+    // ── Atmosphere (subtle) ──
+    const atmosGeo = new THREE.SphereGeometry(GLOBE_RADIUS * 1.12, 64, 64);
+    const atmosMat = new THREE.ShaderMaterial({
+      vertexShader: `
+        varying vec3 vNormal;
+        void main() {
+          vNormal = normalize(normalMatrix * normal);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        varying vec3 vNormal;
+        void main() {
+          float intensity = pow(0.55 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.0);
+          gl_FragColor = vec4(0.796, 0.910, 0.314, 1.0) * intensity * 0.2;
+        }
+      `,
+      blending: THREE.AdditiveBlending,
+      side: THREE.BackSide,
+      transparent: true,
+    });
+    scene.add(new THREE.Mesh(atmosGeo, atmosMat));
+
+    // ── Markers (same approach as v1 — works well) ──
+    const markerGroup = new THREE.Group();
+    const markerPositions: THREE.Vector3[] = [];
+
+    COUNTRIES.forEach((country) => {
+      const pos = latLngToVec3(country.lat, country.lng, GLOBE_RADIUS + 0.005);
+      markerPositions.push(pos);
+
+      // Dot
+      const dotGeo = new THREE.SphereGeometry(0.025, 16, 16);
+      const dotMat = new THREE.MeshBasicMaterial({ color: LIME, depthTest: false });
+      const dot = new THREE.Mesh(dotGeo, dotMat);
+      dot.renderOrder = 1;
+      dot.position.copy(pos);
+      markerGroup.add(dot);
+
+      // Pulse ring
+      const ringGeo = new THREE.RingGeometry(0.03, 0.045, 32);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: LIME, transparent: true, opacity: 0.6, side: THREE.DoubleSide, depthTest: false,
+      });
+      const ring = new THREE.Mesh(ringGeo, ringMat);
+      ring.renderOrder = 1;
+      ring.position.copy(pos);
+      ring.lookAt(new THREE.Vector3(0, 0, 0));
+      ring.userData.ringMat = ringMat;
+      markerGroup.add(ring);
+
+    });
+    scene.add(markerGroup);
+
+    // ── Connection arcs from Colombia (origin) to other countries ──
+    const arcGroup = new THREE.Group();
+    const colombiaIdx = 1;
+    for (let i = 0; i < markerPositions.length; i++) {
+      if (i === colombiaIdx) continue;
+      const points = createArcPoints(markerPositions[colombiaIdx], markerPositions[i]);
+      const arcGeo = new THREE.BufferGeometry().setFromPoints(points);
+      const arcMat = new THREE.LineBasicMaterial({
+        color: LIME, transparent: true, opacity: 0.3, depthTest: false,
+      });
+      const arc = new THREE.Line(arcGeo, arcMat);
+      arc.renderOrder = 1;
+      arcGroup.add(arc);
+
+      // Traveling dot — moves from Colombia outward
+      const tDotGeo = new THREE.SphereGeometry(0.012, 8, 8);
+      const tDotMat = new THREE.MeshBasicMaterial({ color: LIME, depthTest: false });
+      const tDot = new THREE.Mesh(tDotGeo, tDotMat);
+      tDot.renderOrder = 1;
+      tDot.userData.points = points;
+      tDot.userData.t = Math.random();
+      tDot.userData.speed = 0.003 + Math.random() * 0.002;
+      arcGroup.add(tDot);
+    }
+    scene.add(arcGroup);
+
+    // ── Lights ──
+    scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+    const pLight = new THREE.PointLight(0xffffff, 1.0, 10);
+    pLight.position.set(2, 1, 3);
+    scene.add(pLight);
+    const bLight = new THREE.PointLight(0x334466, 0.3, 10);
+    bLight.position.set(-2, -1, -2);
+    scene.add(bLight);
+
+    // ── HTML labels ──
+    const labelEls: HTMLElement[] = [];
+    COUNTRIES.forEach((country) => {
+      const el = document.createElement('div');
+      el.className = 'globe-label';
+      el.innerHTML = `<span class="globe-label-flag">${country.flag}</span><span class="globe-label-name">${country.name}</span>`;
+      labelsContainer.appendChild(el);
+      labelEls.push(el);
+    });
+
+    // ── Mouse hover (subtle, stays on Americas) ──
+    let hoverX = 0;
+    let hoverY = 0;
+    wrapper.addEventListener('mousemove', (e) => {
+      const rect = wrapper.getBoundingClientRect();
+      hoverX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+      hoverY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+    });
+    wrapper.addEventListener('mouseleave', () => { hoverX = 0; hoverY = 0; });
+
+    // ── Animate ──
+    const clock = new THREE.Clock();
+    let smoothX = 0, smoothY = 0;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const elapsed = clock.getElapsedTime();
+
+      smoothX += (hoverX * 0.12 - smoothX) * 0.04;
+      smoothY += (-hoverY * 0.08 - smoothY) * 0.04;
+
+      const oscY = Math.sin(elapsed * 0.15) * 0.06;
+      const rotY = TARGET_ROT_Y + oscY + smoothX;
+      const rotX = TARGET_ROT_X + smoothY;
+
+      globe.rotation.set(rotX, rotY, 0);
+      markerGroup.rotation.set(rotX, rotY, 0);
+      arcGroup.rotation.set(rotX, rotY, 0);
+
+      // Pulse rings
+      markerGroup.children.forEach((child) => {
+        if (child.userData.ringMat) {
+          const s = 1 + Math.sin(elapsed * 2.5) * 0.5;
+          child.scale.set(s, s, s);
+          child.userData.ringMat.opacity = 0.6 - Math.sin(elapsed * 2.5) * 0.4;
+        }
+      });
+
+      // Traveling dots along arc points
+      arcGroup.children.forEach((child) => {
+        if (child.userData.points) {
+          child.userData.t += child.userData.speed;
+          if (child.userData.t > 1) child.userData.t = 0;
+          const pts = child.userData.points;
+          const idx = child.userData.t * (pts.length - 1);
+          const a = Math.floor(idx);
+          const b = Math.min(a + 1, pts.length - 1);
+          const frac = idx - a;
+          child.position.lerpVectors(pts[a], pts[b], frac);
+        }
+      });
+
+      // Labels
+      const w = wrapper.clientWidth;
+      const h = wrapper.clientHeight;
+      COUNTRIES.forEach((country, i) => {
+        const pos = latLngToVec3(country.lat, country.lng, GLOBE_RADIUS + 0.14);
+        const rp = pos.clone();
+        rp.applyAxisAngle(new THREE.Vector3(1, 0, 0), rotX);
+        rp.applyAxisAngle(new THREE.Vector3(0, 1, 0), rotY);
+
+        const proj = rp.clone().project(camera);
+        const x = (proj.x * 0.5 + 0.5) * w;
+        const y = (-proj.y * 0.5 + 0.5) * h;
+
+        const el = labelEls[i];
+        const behind = rp.z < 0;
+        el.style.left = `${x}px`;
+        el.style.top = `${y}px`;
+        el.style.opacity = behind ? '0' : '1';
+        el.style.transform = `translate(-50%, -50%) scale(${behind ? 0.5 : 1})`;
+      });
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    const ro = new ResizeObserver(() => {
+      const w = wrapper.clientWidth;
+      const h = wrapper.clientHeight;
+      renderer.setSize(w, h);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    });
+    ro.observe(wrapper);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => init());
+  } else {
+    init();
+  }
+</script>
+
+<style>
+  .globe-outer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .globe-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65%;
+    height: 65%;
+    border-radius: 50%;
+    background: rgba(203, 232, 80, 0.15);
+    box-shadow: 0 0 80px 40px rgba(203, 232, 80, 0.1), 0 0 160px 80px rgba(203, 232, 80, 0.05);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .globe-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    overflow: visible;
+    z-index: 1;
+  }
+
+  #globe-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .globe-labels {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .globe-label {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 9px;
+    background: rgba(10, 10, 10, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(203, 232, 80, 0.25);
+    border-radius: 100px;
+    white-space: nowrap;
+    transition: opacity 0.4s, transform 0.4s;
+    pointer-events: none;
+  }
+
+  .globe-label-flag {
+    font-size: 0.75rem;
+    line-height: 1;
+  }
+
+  .globe-label-name {
+    font-family: var(--font-heading);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+  }
+</style>
