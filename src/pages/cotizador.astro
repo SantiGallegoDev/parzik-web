@@ -23,7 +23,7 @@ import config from '../data/cotizador-config.json';
   <section class="cotizador">
     <div class="container">
       <div class="quoter-card">
-        <!-- Progress -->
+        <!-- Step progress bar and counter -->
         <div class="quoter-progress">
           <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
@@ -31,17 +31,17 @@ import config from '../data/cotizador-config.json';
           <p class="progress-text" id="progressText">Paso 1 de 10</p>
         </div>
 
-        <!-- Steps container -->
+        <!-- Dynamic step content rendered by JS -->
         <div class="quoter-body" id="quoterBody"></div>
 
-        <!-- Navigation -->
+        <!-- Prev / Next navigation -->
         <div class="quoter-nav">
           <button class="btn-secondary" id="btnPrev" style="visibility: hidden;">Anterior</button>
           <button class="btn-primary" id="btnNext">Siguiente</button>
         </div>
       </div>
 
-      <!-- Summary (hidden until last step) -->
+      <!-- Quote summary panel, shown after the last step -->
       <div class="quoter-summary" id="quoterSummary" style="display: none;">
         <div class="summary-card">
           <h2>Resumen de tu cotización</h2>
@@ -65,9 +65,11 @@ import config from '../data/cotizador-config.json';
 <script type="application/json" id="cotizador-data" set:html={JSON.stringify(config)} />
 
 <script>
+  // Config is passed from Astro via an inline JSON script tag to avoid client-side fetch
   const config = JSON.parse(document.getElementById('cotizador-data').textContent);
   const steps = config.steps;
 
+  // Track the current visible step index and the user's accumulated selections
   let currentStepIndex = 0;
   let selections = {};
 
@@ -82,6 +84,7 @@ import config from '../data/cotizador-config.json';
   const btnWhatsapp = document.getElementById('btnWhatsapp');
   const btnNewQuote = document.getElementById('btnNewQuote');
 
+  // Returns only the steps that match the current selections — supports conditional steps
   function getVisibleSteps() {
     return steps.filter(step => {
       if (!step.condition) return true;
@@ -89,16 +92,19 @@ import config from '../data/cotizador-config.json';
     });
   }
 
+  // Format a number as a Colombian peso price string
   function formatPrice(num) {
     return config.currencySymbol + ' ' + num.toLocaleString('es-CO');
   }
 
+  // Render the current step — updates progress bar, nav buttons, and step HTML
   function renderStep() {
     const visible = getVisibleSteps();
     const step = visible[currentStepIndex];
     if (!step) return;
 
     const total = visible.length;
+    // Progress percentage reserves the last slot for the summary screen
     const pct = ((currentStepIndex + 1) / (total + 1)) * 100;
     progressFill.style.width = pct + '%';
     progressText.textContent = `Paso ${currentStepIndex + 1} de ${total}`;
@@ -114,6 +120,7 @@ import config from '../data/cotizador-config.json';
       step.options.forEach(opt => {
         const selected = selections[step.id] === opt.id;
         const priceText = opt.price !== undefined ? formatPrice(opt.price) : '';
+        // Multiplier options (e.g. delivery timeline) show a percentage surcharge label
         const multiplierText = opt.multiplier !== undefined
           ? (opt.multiplier === 1 ? 'Sin recargo' : opt.multiplier > 1 ? `+${Math.round((opt.multiplier - 1) * 100)}%` : `${Math.round((opt.multiplier - 1) * 100)}%`)
           : '';
@@ -155,6 +162,7 @@ import config from '../data/cotizador-config.json';
     attachStepListeners(step);
   }
 
+  // Binds interaction events after step HTML is injected into the DOM
   function attachStepListeners(step) {
     if (step.type === 'single-select') {
       quoterBody.querySelectorAll('.option-card').forEach(btn => {
@@ -182,12 +190,15 @@ import config from '../data/cotizador-config.json';
     }
   }
 
+  // Calculates the quote total from current selections.
+  // Applies the delivery timeline multiplier (plazo) and the configured discount.
   function calculateTotal() {
     let subtotal = 0;
     const items = [];
     const visible = getVisibleSteps();
 
     visible.forEach(step => {
+      // Plazo only contributes a multiplier — skip it in the line-item list
       if (step.id === 'plazo') return;
 
       if (step.type === 'single-select' && selections[step.id]) {
@@ -207,6 +218,7 @@ import config from '../data/cotizador-config.json';
       }
     });
 
+    // Resolve the delivery timeline multiplier from the plazo step selection
     let multiplier = 1;
     let plazoLabel = 'Normal';
     const plazoStep = steps.find(s => s.id === 'plazo');
@@ -225,9 +237,11 @@ import config from '../data/cotizador-config.json';
     return { items, subtotal, multiplier, plazoLabel, afterMultiplier, discount, total };
   }
 
+  // Renders the final quote summary: line items, totals, and WhatsApp CTA link
   function renderSummary() {
     const calc = calculateTotal();
 
+    // Build selected line-item rows
     let itemsHtml = '';
     calc.items.forEach(item => {
       itemsHtml += `
@@ -239,6 +253,7 @@ import config from '../data/cotizador-config.json';
     });
     summaryItems.innerHTML = itemsHtml;
 
+    // Build totals block: subtotal, optional timeline adjustment, discount, and final total
     let totalsHtml = `
       <div class="summary-row subtotal">
         <span>Subtotal</span>
@@ -269,7 +284,7 @@ import config from '../data/cotizador-config.json';
     `;
     summaryTotals.innerHTML = totalsHtml;
 
-    // WhatsApp
+    // Build the pre-filled WhatsApp message with the full quote breakdown
     let msg = '*Cotizacion Parzik*\n\n';
     calc.items.forEach(item => {
       msg += `${item.label} - ${formatPrice(item.price)}\n`;
@@ -286,12 +301,14 @@ import config from '../data/cotizador-config.json';
     btnWhatsapp.href = `https://wa.me/${config.whatsappNumber}?text=${encoded}`;
   }
 
+  // Hides the step card and shows the quote summary panel
   function showSummary() {
     document.querySelector('.quoter-card').style.display = 'none';
     quoterSummary.style.display = 'block';
     renderSummary();
   }
 
+  // Hides the summary panel and restores the step card
   function showQuoter() {
     document.querySelector('.quoter-card').style.display = 'block';
     quoterSummary.style.display = 'none';
@@ -301,7 +318,7 @@ import config from '../data/cotizador-config.json';
     const visible = getVisibleSteps();
     const step = visible[currentStepIndex];
 
-    // Validate selection
+    // Require a selection before advancing on single-select steps
     if (step.type === 'single-select' && !selections[step.id]) return;
 
     if (currentStepIndex < visible.length - 1) {
@@ -319,6 +336,7 @@ import config from '../data/cotizador-config.json';
     }
   });
 
+  // Reset all selections and restart from step 1
   btnNewQuote.addEventListener('click', () => {
     currentStepIndex = 0;
     selections = {};
@@ -326,7 +344,7 @@ import config from '../data/cotizador-config.json';
     renderStep();
   });
 
-  // Init
+  // Render the first step on page load
   renderStep();
 </script>
 
@@ -337,7 +355,7 @@ import config from '../data/cotizador-config.json';
     padding: 0 var(--space-lg);
   }
 
-  /* Page Hero (same pattern as servicios) */
+  /* Hero section — matches the layout pattern used across inner pages */
   .page-hero {
     position: relative;
     padding: 140px var(--space-lg) var(--space-2xl);
@@ -404,7 +422,7 @@ import config from '../data/cotizador-config.json';
     line-height: 1.7;
   }
 
-  /* Cotizador section */
+  /* Main quoter section */
   .cotizador {
     padding: 0 0 var(--space-2xl);
   }
@@ -416,7 +434,7 @@ import config from '../data/cotizador-config.json';
     padding: var(--space-xl);
   }
 
-  /* Progress */
+  /* Step progress bar */
   .quoter-progress {
     margin-bottom: var(--space-lg);
   }
@@ -443,7 +461,7 @@ import config from '../data/cotizador-config.json';
     font-weight: 300;
   }
 
-  /* Steps */
+  /* Step body — min-height prevents layout shift between steps */
   .quoter-body {
     min-height: 260px;
   }
@@ -461,7 +479,7 @@ import config from '../data/cotizador-config.json';
     margin-bottom: var(--space-lg);
   }
 
-  /* Single select options */
+  /* Single-select option grid */
   .quoter-body :global(.step-options) {
     display: grid;
     gap: var(--space-sm);
@@ -515,7 +533,7 @@ import config from '../data/cotizador-config.json';
     font-weight: 300;
   }
 
-  /* Quantity */
+  /* Quantity step — increment/decrement control */
   .quoter-body :global(.step-quantity) {
     display: flex;
     align-items: center;
@@ -557,7 +575,7 @@ import config from '../data/cotizador-config.json';
     font-weight: 300;
   }
 
-  /* Toggle */
+  /* Toggle step — yes/no switch with add-on price label */
   .quoter-body :global(.step-toggle) {
     display: flex;
     align-items: center;
@@ -619,7 +637,7 @@ import config from '../data/cotizador-config.json';
     font-size: 1.125rem;
   }
 
-  /* Navigation */
+  /* Step navigation bar */
   .quoter-nav {
     display: flex;
     justify-content: space-between;
@@ -666,7 +684,7 @@ import config from '../data/cotizador-config.json';
     color: var(--deep-white);
   }
 
-  /* Summary */
+  /* Quote summary card */
   .summary-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -730,6 +748,7 @@ import config from '../data/cotizador-config.json';
     align-items: center;
   }
 
+  /* WhatsApp CTA button */
   .btn-whatsapp {
     display: inline-flex;
     align-items: center;

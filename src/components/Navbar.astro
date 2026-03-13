@@ -2,12 +2,14 @@
 
 ---
 
+<!-- Fixed top navbar with frosted glass effect and mobile drawer support -->
 <nav class="navbar">
   <div class="navbar-inner">
     <a href="/" class="logo">
       <img src="/logo-parzik.png" alt="Parzik" class="logo-img" />
     </a>
 
+    <!-- Primary nav links — hidden on mobile, replaced by the side drawer -->
     <div class="nav-links" id="navLinks">
       <a href="/servicios">Servicios</a>
       <a href="/nosotros">Nosotros</a>
@@ -15,6 +17,7 @@
       <a href="/cotizador" class="btn-cta">Cotizar proyecto</a>
     </div>
 
+    <!-- Mobile-only hamburger trigger -->
     <button class="hamburger" id="hamburger" aria-label="Abrir menú">
       <span></span>
       <span></span>
@@ -27,12 +30,13 @@
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
 
+  // Toggle the mobile drawer and animate the hamburger icon
   hamburger?.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     navLinks?.classList.toggle('open');
   });
 
-  // Close menu when clicking a link
+  // Close the drawer when the user navigates to a new page
   navLinks?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       hamburger?.classList.remove('active');
@@ -42,6 +46,7 @@
 </script>
 
 <style>
+  /* Sticky navbar with semi-transparent background and blur */
   .navbar {
     position: fixed;
     top: 0;
@@ -89,6 +94,7 @@
     color: var(--deep-white);
   }
 
+  /* CTA button — visually distinct from regular nav links */
   .btn-cta {
     background: var(--lime-green);
     color: var(--deep-ocean) !important;
@@ -103,7 +109,7 @@
     opacity: 0.9;
   }
 
-  /* Hamburger button */
+  /* Hamburger button — three-line icon, visible on mobile only */
   .hamburger {
     display: none;
     flex-direction: column;
@@ -125,6 +131,7 @@
     transition: transform 0.3s, opacity 0.3s;
   }
 
+  /* Animate the three lines into an X when the menu is open */
   .hamburger.active span:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
   }
@@ -142,6 +149,7 @@
       display: flex;
     }
 
+    /* Mobile drawer slides in from the right */
     .nav-links {
       position: fixed;
       top: 0;
@@ -171,6 +179,7 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
+    /* Full-width CTA at the bottom of the mobile drawer */
     .nav-links .btn-cta {
       margin-top: var(--space-sm);
       text-align: center;

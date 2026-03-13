@@ -7,7 +7,7 @@ import Footer from '../components/Footer.astro';
 <Layout title="Nosotros — Parzik">
   <Navbar />
 
-  <!-- Hero -->
+  <!-- Page hero with decorative background circles -->
   <section class="page-hero">
     <div class="hero-bg">
       <div class="circle circle-1"></div>
@@ -21,7 +21,7 @@ import Footer from '../components/Footer.astro';
     </div>
   </section>
 
-  <!-- Stats inline -->
+  <!-- Key metrics displayed as a horizontal stats bar -->
   <section class="stats-bar">
     <div class="container">
       <div class="stats-row" data-stagger>
@@ -48,7 +48,7 @@ import Footer from '../components/Footer.astro';
     </div>
   </section>
 
-  <!-- Historia - layout horizontal -->
+  <!-- Company origin story, split into two columns -->
   <section class="story">
     <div class="container">
       <div class="story-layout" data-animate="fade-up">
@@ -64,7 +64,7 @@ import Footer from '../components/Footer.astro';
     </div>
   </section>
 
-  <!-- Lo que nos mueve - misión/visión en formato moderno -->
+  <!-- Mission, vision, and focus pillars in a bento-style grid -->
   <section class="pillars">
     <div class="container">
       <div class="pillars-grid" data-stagger>
@@ -87,7 +87,7 @@ import Footer from '../components/Footer.astro';
     </div>
   </section>
 
-  <!-- Diferenciadores - scroll horizontal feel -->
+  <!-- Four differentiator cards highlighting the agency's strengths -->
   <section class="differentiators">
     <div class="container">
       <div class="diff-header" data-animate="fade-up">
@@ -127,7 +127,7 @@ import Footer from '../components/Footer.astro';
     </div>
   </section>
 
-  <!-- Equipo -->
+  <!-- Team member cards with photo, role, and short bio -->
   <section class="team">
     <div class="container">
       <div class="team-header" data-animate="fade-up">
@@ -172,7 +172,7 @@ import Footer from '../components/Footer.astro';
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- Bottom call-to-action with links to the quoter and email -->
   <section class="cta-section">
     <div class="container">
       <div class="cta-card" data-animate="scale">
@@ -209,7 +209,7 @@ import Footer from '../components/Footer.astro';
     color: var(--lime-green);
   }
 
-  /* Hero */
+  /* Hero section – decorative background layer */
   .hero-bg {
     position: absolute;
     inset: 0;
@@ -271,7 +271,7 @@ import Footer from '../components/Footer.astro';
     line-height: 1.7;
   }
 
-  /* Stats Bar */
+  /* Stats bar – horizontal row of key figures */
   .stats-bar {
     padding: var(--space-lg) var(--space-lg);
     background: linear-gradient(180deg, #111219 0%, #0A0A0A 100%);
@@ -311,7 +311,7 @@ import Footer from '../components/Footer.astro';
     background: rgba(255, 255, 255, 0.1);
   }
 
-  /* Story */
+  /* Story section – two-column layout, title left / text right */
   .story {
     padding: var(--space-2xl) var(--space-lg);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -342,7 +342,7 @@ import Footer from '../components/Footer.astro';
     margin-bottom: 0;
   }
 
-  /* Pillars */
+  /* Pillars grid – mission card spans full height on the left */
   .pillars {
     padding: var(--space-2xl) var(--space-lg);
     background: radial-gradient(ellipse at 20% 50%, rgba(203, 232, 80, 0.02) 0%, transparent 60%);
@@ -421,7 +421,7 @@ import Footer from '../components/Footer.astro';
     font-weight: 300;
   }
 
-  /* Differentiators */
+  /* Differentiators – four-column icon card grid */
   .differentiators {
     padding: var(--space-2xl) var(--space-lg);
     border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -474,7 +474,7 @@ import Footer from '../components/Footer.astro';
     font-weight: 300;
   }
 
-  /* Team */
+  /* Team section – 2x2 card grid with photo and bio */
   .team {
     padding: var(--space-2xl) var(--space-lg);
     background: linear-gradient(180deg, rgba(17, 18, 25, 0.3) 0%, transparent 100%);
@@ -562,7 +562,7 @@ import Footer from '../components/Footer.astro';
     font-weight: 300;
   }
 
-  /* CTA */
+  /* CTA section – centered card with subtle radial glow */
   .cta-section {
     padding: var(--space-xl) var(--space-lg) var(--space-2xl);
   }
@@ -642,7 +642,7 @@ import Footer from '../components/Footer.astro';
     color: #fff;
   }
 
-  /* Responsive */
+  /* Responsive breakpoints */
   @media (max-width: 768px) {
     .stats-row {
       gap: var(--space-md);

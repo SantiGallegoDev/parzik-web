@@ -3,7 +3,7 @@
 ---
 
 <style is:global>
-  /* Scroll animation base states */
+  /* Base state for all animated elements — hidden until triggered */
   [data-animate] {
     opacity: 0;
     transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
@@ -46,7 +46,7 @@
     transform: translateX(0);
   }
 
-  /* Scale up */
+  /* Scale up from slightly reduced size */
   [data-animate="scale"] {
     transform: scale(0.9);
   }
@@ -55,7 +55,7 @@
     transform: scale(1);
   }
 
-  /* Blur in */
+  /* Blur in — combines vertical slide with focus transition */
   [data-animate="blur"] {
     filter: blur(8px);
     transform: translateY(20px);
@@ -66,7 +66,7 @@
     transform: translateY(0);
   }
 
-  /* Stagger children */
+  /* Stagger children — each direct child animates in sequence */
   [data-stagger] > * {
     opacity: 0;
     transform: translateY(30px);
@@ -74,6 +74,7 @@
                 transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
+  /* Per-child delay offsets for stagger effect (up to 6 items) */
   [data-stagger].visible > *:nth-child(1) { transition-delay: 0ms; }
   [data-stagger].visible > *:nth-child(2) { transition-delay: 100ms; }
   [data-stagger].visible > *:nth-child(3) { transition-delay: 200ms; }
@@ -86,7 +87,7 @@
     transform: translateY(0);
   }
 
-  /* Delay modifiers */
+  /* Manual delay overrides via data-delay attribute */
   [data-delay="100"] { transition-delay: 100ms !important; }
   [data-delay="200"] { transition-delay: 200ms !important; }
   [data-delay="300"] { transition-delay: 300ms !important; }
@@ -95,22 +96,25 @@
 </style>
 
 <script>
+  // Trigger .visible class when element enters the viewport
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
         } else {
+          // Remove class on exit to replay animation on re-entry
           entry.target.classList.remove('visible');
         }
       });
     },
     {
       threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px',
+      rootMargin: '0px 0px -50px 0px', // Offset bottom edge to delay trigger slightly
     }
   );
 
+  // Attach observer to all animatable elements
   function observe() {
     document.querySelectorAll('[data-animate], [data-stagger]').forEach((el) => {
       observer.observe(el);
@@ -118,5 +122,6 @@
   }
 
   observe();
+  // Re-run after Astro view transitions swap the DOM
   document.addEventListener('astro:after-swap', observe);
 </script>

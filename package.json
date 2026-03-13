@@ -1,7 +1,7 @@
 {
-  "name": "extra-equinox",
+  "name": "parzik-website",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -12,8 +12,5 @@
     "astro": "^5.17.1",
     "three": "^0.183.2",
     "topojson-client": "^3.1.0"
-  },
-  "devDependencies": {
-    "puppeteer": "^24.39.0"
   }
 }

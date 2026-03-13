@@ -1,6 +1,8 @@
 ---
-// Globe component — 3D earth with country borders and markers
+
 ---
+
+<!-- Globe component — 3D earth rendered with Three.js, country borders drawn on canvas, animated markers and arcs -->
 
 <div class="globe-outer">
   <div class="globe-glow"></div>
@@ -14,6 +16,7 @@
   import * as THREE from 'three';
   import * as topojson from 'topojson-client';
 
+  // Countries to display as markers on the globe
   const COUNTRIES = [
     { name: 'USA', lat: 38.9, lng: -77.0, flag: '🇺🇸' },
     { name: 'Colombia', lat: 4.6, lng: -74.1, flag: '🇨🇴' },
@@ -21,11 +24,14 @@
     { name: 'Panamá', lat: 9.0, lng: -79.5, flag: '🇵🇦' },
   ];
 
+  // Brand accent color used for markers, arcs, and atmosphere glow
   const LIME = new THREE.Color(0xcbe850);
   const GLOBE_RADIUS = 1;
+  // Initial rotation keeps the Americas centered in view
   const TARGET_ROT_Y = -0.4;
   const TARGET_ROT_X = 0.25;
 
+  // Converts geographic coordinates to a 3D point on the sphere surface
   function latLngToVec3(lat: number, lng: number, radius: number): THREE.Vector3 {
     const phi = (90 - lat) * (Math.PI / 180);
     const theta = (lng + 180) * (Math.PI / 180);
@@ -36,6 +42,7 @@
     );
   }
 
+  // Builds a curved arc between two globe points using spherical interpolation
   function createArcPoints(p1: THREE.Vector3, p2: THREE.Vector3, segments = 50): THREE.Vector3[] {
     const points: THREE.Vector3[] = [];
     const n1 = p1.clone().normalize();
@@ -46,11 +53,11 @@
 
     for (let i = 0; i <= segments; i++) {
       const t = i / segments;
-      // True slerp on unit sphere
+      // Slerp along the great circle between the two points
       const sinA = Math.sin(angle);
       const dir = n1.clone().multiplyScalar(Math.sin((1 - t) * angle) / sinA)
         .add(n2.clone().multiplyScalar(Math.sin(t * angle) / sinA));
-      // Elevation: arc above surface, peaks at middle
+      // Lift the arc above the surface, peaking at the midpoint
       const elevation = Math.sin(t * Math.PI) * dist * 0.25;
       dir.multiplyScalar(r + elevation);
       points.push(dir);
@@ -58,6 +65,7 @@
     return points;
   }
 
+  // Draws country fills and borders onto an offscreen canvas used as the globe texture
   function drawBordersOnCanvas(features: any[]): HTMLCanvasElement {
     const canvas = document.createElement('canvas');
     canvas.width = 2048;
@@ -88,7 +96,7 @@
       });
     });
 
-    // Draw borders on top
+    // Draw country borders on top of the fills
     ctx.strokeStyle = 'rgba(203, 232, 80, 0.2)';
     ctx.lineWidth = 0.6;
     ctx.lineJoin = 'round';
@@ -131,7 +139,7 @@
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
     camera.position.z = 2.6;
 
-    // ── Earth texture from topojson ──
+    // Fetch TopoJSON world data and render it to a canvas texture
     let earthTexture: THREE.Texture | null = null;
     try {
       const res = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
@@ -143,10 +151,10 @@
       earthTexture.magFilter = THREE.LinearFilter;
       earthTexture.generateMipmaps = false;
     } catch (e) {
-      // Fallback: plain dark globe
+      // Fallback: plain dark globe if the CDN request fails
     }
 
-    // ── Globe ──
+    // Globe sphere with the canvas-rendered earth texture applied
     const globeGeo = new THREE.SphereGeometry(GLOBE_RADIUS, 128, 128);
     const globeMat = new THREE.MeshPhongMaterial({
       map: earthTexture || undefined,
@@ -157,7 +165,7 @@
     const globe = new THREE.Mesh(globeGeo, globeMat);
     scene.add(globe);
 
-    // ── Atmosphere (subtle) ──
+    // Atmosphere halo using a backside shader with Fresnel-style rim falloff
     const atmosGeo = new THREE.SphereGeometry(GLOBE_RADIUS * 1.12, 64, 64);
     const atmosMat = new THREE.ShaderMaterial({
       vertexShader: `
@@ -180,7 +188,7 @@
     });
     scene.add(new THREE.Mesh(atmosGeo, atmosMat));
 
-    // ── Markers (same approach as v1 — works well) ──
+    // Country markers: dot + animated pulse ring for each location
     const markerGroup = new THREE.Group();
     const markerPositions: THREE.Vector3[] = [];
 
@@ -188,7 +196,7 @@
       const pos = latLngToVec3(country.lat, country.lng, GLOBE_RADIUS + 0.005);
       markerPositions.push(pos);
 
-      // Dot
+      // Center dot marker
       const dotGeo = new THREE.SphereGeometry(0.025, 16, 16);
       const dotMat = new THREE.MeshBasicMaterial({ color: LIME, depthTest: false });
       const dot = new THREE.Mesh(dotGeo, dotMat);
@@ -196,7 +204,7 @@
       dot.position.copy(pos);
       markerGroup.add(dot);
 
-      // Pulse ring
+      // Pulse ring around the dot, scaled and faded in the animation loop
       const ringGeo = new THREE.RingGeometry(0.03, 0.045, 32);
       const ringMat = new THREE.MeshBasicMaterial({
         color: LIME, transparent: true, opacity: 0.6, side: THREE.DoubleSide, depthTest: false,
@@ -211,7 +219,7 @@
     });
     scene.add(markerGroup);
 
-    // ── Connection arcs from Colombia (origin) to other countries ──
+    // Connection arcs radiate outward from Colombia to each other marker country
     const arcGroup = new THREE.Group();
     const colombiaIdx = 1;
     for (let i = 0; i < markerPositions.length; i++) {
@@ -225,7 +233,7 @@
       arc.renderOrder = 1;
       arcGroup.add(arc);
 
-      // Traveling dot — moves from Colombia outward
+      // Traveling dot that loops continuously along the arc path
       const tDotGeo = new THREE.SphereGeometry(0.012, 8, 8);
       const tDotMat = new THREE.MeshBasicMaterial({ color: LIME, depthTest: false });
       const tDot = new THREE.Mesh(tDotGeo, tDotMat);
@@ -237,7 +245,7 @@
     }
     scene.add(arcGroup);
 
-    // ── Lights ──
+    // Ambient fill + key light + subtle back fill for depth
     scene.add(new THREE.AmbientLight(0xffffff, 0.3));
     const pLight = new THREE.PointLight(0xffffff, 1.0, 10);
     pLight.position.set(2, 1, 3);
@@ -246,7 +254,7 @@
     bLight.position.set(-2, -1, -2);
     scene.add(bLight);
 
-    // ── HTML labels ──
+    // Create HTML label elements and track references for per-frame position updates
     const labelEls: HTMLElement[] = [];
     COUNTRIES.forEach((country) => {
       const el = document.createElement('div');
@@ -256,7 +264,7 @@
       labelEls.push(el);
     });
 
-    // ── Mouse hover (subtle, stays on Americas) ──
+    // Track mouse position relative to the wrapper for subtle parallax rotation
     let hoverX = 0;
     let hoverY = 0;
     wrapper.addEventListener('mousemove', (e) => {
@@ -266,7 +274,6 @@
     });
     wrapper.addEventListener('mouseleave', () => { hoverX = 0; hoverY = 0; });
 
-    // ── Animate ──
     const clock = new THREE.Clock();
     let smoothX = 0, smoothY = 0;
 
@@ -274,18 +281,21 @@
       requestAnimationFrame(animate);
       const elapsed = clock.getElapsedTime();
 
+      // Lerp mouse influence for smooth, inertia-like response
       smoothX += (hoverX * 0.12 - smoothX) * 0.04;
       smoothY += (-hoverY * 0.08 - smoothY) * 0.04;
 
+      // Slow Y oscillation keeps the globe gently rocking when idle
       const oscY = Math.sin(elapsed * 0.15) * 0.06;
       const rotY = TARGET_ROT_Y + oscY + smoothX;
       const rotX = TARGET_ROT_X + smoothY;
 
+      // Sync rotation across globe, markers, and arcs
       globe.rotation.set(rotX, rotY, 0);
       markerGroup.rotation.set(rotX, rotY, 0);
       arcGroup.rotation.set(rotX, rotY, 0);
 
-      // Pulse rings
+      // Animate pulse rings: scale and opacity in sync
       markerGroup.children.forEach((child) => {
         if (child.userData.ringMat) {
           const s = 1 + Math.sin(elapsed * 2.5) * 0.5;
@@ -294,7 +304,7 @@
         }
       });
 
-      // Traveling dots along arc points
+      // Advance traveling dots along their arc point arrays
       arcGroup.children.forEach((child) => {
         if (child.userData.points) {
           child.userData.t += child.userData.speed;
@@ -308,7 +318,7 @@
         }
       });
 
-      // Labels
+      // Project marker positions to screen space and update HTML label positions
       const w = wrapper.clientWidth;
       const h = wrapper.clientHeight;
       COUNTRIES.forEach((country, i) => {
@@ -322,6 +332,7 @@
         const y = (-proj.y * 0.5 + 0.5) * h;
 
         const el = labelEls[i];
+        // Hide labels for markers on the back face of the globe
         const behind = rp.z < 0;
         el.style.left = `${x}px`;
         el.style.top = `${y}px`;
@@ -333,6 +344,7 @@
     }
     animate();
 
+    // Keep renderer and camera in sync when the container is resized
     const ro = new ResizeObserver(() => {
       const w = wrapper.clientWidth;
       const h = wrapper.clientHeight;
@@ -343,6 +355,7 @@
     ro.observe(wrapper);
   }
 
+  // Wait for the DOM to be ready before initialising the scene
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => init());
   } else {
@@ -357,6 +370,7 @@
     height: 100%;
   }
 
+  /* Decorative radial glow element layered behind the globe sphere */
   .globe-glow {
     position: absolute;
     top: 50%;
@@ -386,6 +400,7 @@
     display: block;
   }
 
+  /* Overlay container for HTML labels — sits on top of the canvas */
   .globe-labels {
     position: absolute;
     inset: 0;
@@ -423,6 +438,7 @@
     color: rgba(255, 255, 255, 0.8);
   }
 
+  /* Hide country labels on mobile to avoid layout crowding */
   @media (max-width: 768px) {
     .globe-labels {
       display: none;

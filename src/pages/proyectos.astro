@@ -1,9 +1,11 @@
 ---
+// Projects portfolio page — displays all client work in a filterable bento grid
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import Globe from '../components/Globe.astro';
 
+// Static project data — update with new clients as they are onboarded
 const projects = [
   {
     name: "Cocora Coffee House",
@@ -85,6 +87,7 @@ const projects = [
   },
 ];
 
+// Derive unique category list from project data, with "Todos" always first
 const categories = ["Todos", ...new Set(projects.map(p => p.category))];
 ---
 
@@ -199,12 +202,14 @@ const categories = ["Todos", ...new Set(projects.map(p => p.category))];
 </Layout>
 
 <script>
+  // Filter portfolio cards by category on button click
   document.addEventListener('DOMContentLoaded', () => {
     const buttons = document.querySelectorAll('.filter-btn');
     const cards = document.querySelectorAll('.bento-card');
 
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
+        // Update active state on filter buttons
         buttons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
@@ -213,11 +218,13 @@ const categories = ["Todos", ...new Set(projects.map(p => p.category))];
         cards.forEach(card => {
           const cat = card.getAttribute('data-category');
           if (filter === 'Todos' || cat === filter) {
+            // Restore display before removing hidden class so transition plays
             (card as HTMLElement).style.display = '';
             requestAnimationFrame(() => {
               card.classList.remove('card-hidden');
             });
           } else {
+            // Hide after CSS transition completes (300ms)
             card.classList.add('card-hidden');
             setTimeout(() => {
               (card as HTMLElement).style.display = 'none';

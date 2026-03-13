@@ -7,8 +7,10 @@ import Footer from '../components/Footer.astro';
 import ClientCarousel from '../components/ClientCarousel.astro';
 import config from '../data/cotizador-config.json';
 
+// Pull plan options from the first step of the quoter config
 const plans = config.steps[0].options;
 
+// Format numbers as Colombian peso prices (e.g., $ 1.500.000)
 function formatPrice(num: number) {
   return '$ ' + num.toLocaleString('es-CO');
 }
@@ -19,6 +21,7 @@ function formatPrice(num: number) {
   <Hero />
   <Services />
 
+  <!-- Process section: four-step timeline explaining the project workflow -->
   <section class="process">
     <div class="container">
       <div class="process-header">
@@ -29,6 +32,7 @@ function formatPrice(num: number) {
         </p>
       </div>
 
+      <!-- Vertical timeline with staggered fade-up animations per step -->
       <div class="process-timeline">
         <div class="timeline-line" data-animate="fade-up"></div>
 
@@ -87,6 +91,7 @@ function formatPrice(num: number) {
     </div>
   </section>
 
+  <!-- About section: agency description and key stats -->
   <section id="nosotros" class="about">
     <div class="container">
       <p class="section-tag" data-animate="fade-up">Quienes somos</p>
@@ -95,6 +100,7 @@ function formatPrice(num: number) {
         Somos una agencia de desarrollo de software que crea soluciones integrales.
         Conectamos tecnología con resultados de negocio.
       </p>
+      <!-- Stats animate in with stagger via data-stagger attribute -->
       <div class="stats" data-stagger>
         <div class="stat">
           <span class="stat-number">50+</span>
@@ -114,6 +120,7 @@ function formatPrice(num: number) {
 
   <ClientCarousel />
 
+  <!-- Plans section: pricing cards driven by cotizador-config.json -->
   <section class="plans">
     <div class="container">
       <p class="section-tag" data-animate="fade-up">Planes</p>
@@ -123,6 +130,7 @@ function formatPrice(num: number) {
       <div class="plans-grid" data-stagger>
         {plans.map((plan) => (
           <div class={`plan-card${plan.featured ? ' featured' : ''}`}>
+            {/* Show "Popular" badge on the featured plan */}
             {plan.featured && <div class="plan-badge">Popular</div>}
             <div class="plan-header">
               <h3>{plan.label}</h3>
@@ -142,6 +150,7 @@ function formatPrice(num: number) {
     </div>
   </section>
 
+  <!-- Contact CTA section -->
   <section id="contacto" class="contact">
     <div class="container">
       <div class="contact-card" data-animate="scale">
@@ -173,7 +182,8 @@ function formatPrice(num: number) {
     color: var(--lime-green);
   }
 
-  /* Process */
+  /* ─── Process ─────────────────────────────────────────── */
+
   .process {
     padding: var(--space-2xl) var(--space-lg);
     border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -181,6 +191,7 @@ function formatPrice(num: number) {
     overflow: hidden;
   }
 
+  /* Subtle radial glow in the background */
   .process::before {
     content: '';
     position: absolute;
@@ -223,6 +234,7 @@ function formatPrice(num: number) {
     margin: 0 auto;
   }
 
+  /* Vertical connector line running through all steps */
   .timeline-line {
     position: absolute;
     left: 28px;
@@ -259,6 +271,7 @@ function formatPrice(num: number) {
     padding-top: var(--space-lg);
   }
 
+  /* Glowing dot marker aligned to the timeline line */
   .step-dot {
     position: relative;
     width: 14px;
@@ -277,6 +290,7 @@ function formatPrice(num: number) {
     border: 2px solid rgba(203, 232, 80, 0.25);
   }
 
+  /* Large decorative step number rendered behind the dot */
   .step-number-bg {
     position: absolute;
     font-family: var(--font-heading);
@@ -304,6 +318,7 @@ function formatPrice(num: number) {
     overflow: hidden;
   }
 
+  /* Top-edge highlight that fades in on hover */
   .step-card::before {
     content: '';
     position: absolute;
@@ -388,7 +403,8 @@ function formatPrice(num: number) {
     }
   }
 
-  /* About */
+  /* ─── About ───────────────────────────────────────────── */
+
   .about {
     padding: var(--space-2xl) var(--space-lg);
   }
@@ -432,7 +448,8 @@ function formatPrice(num: number) {
     font-weight: 300;
   }
 
-  /* Plans */
+  /* ─── Plans ───────────────────────────────────────────── */
+
   .plans {
     padding: var(--space-2xl) var(--space-lg);
     border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -451,6 +468,7 @@ function formatPrice(num: number) {
     margin-bottom: var(--space-xl);
   }
 
+  /* Three-column grid; collapses to single column on mobile */
   .plans-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -477,6 +495,7 @@ function formatPrice(num: number) {
     background: rgba(203, 232, 80, 0.04);
   }
 
+  /* "Popular" label positioned above the card top edge */
   .plan-badge {
     position: absolute;
     top: -10px;
@@ -519,6 +538,7 @@ function formatPrice(num: number) {
     list-style: none;
   }
 
+  /* Feature list item with a small dot bullet */
   .plan-card li {
     color: rgba(255, 255, 255, 0.65);
     font-size: 0.875rem;
@@ -549,7 +569,8 @@ function formatPrice(num: number) {
     }
   }
 
-  /* Contact */
+  /* ─── Contact ─────────────────────────────────────────── */
+
   .contact {
     padding: var(--space-xl) var(--space-lg) var(--space-2xl);
   }

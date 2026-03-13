@@ -2,13 +2,16 @@
 
 ---
 
+<!-- Hero section — full-viewport landing block with tagline, CTA buttons, and laptop mockup -->
 <section class="hero">
+  <!-- Decorative background circles for ambient depth effect -->
   <div class="hero-bg">
     <div class="circle circle-1"></div>
     <div class="circle circle-2"></div>
     <div class="circle circle-3"></div>
   </div>
 
+  <!-- Main headline, sub-copy, and CTA actions -->
   <div class="hero-content">
     <p class="hero-tag" data-animate="blur">Software & Soluciones Digitales</p>
     <h1 data-animate="fade-up" data-delay="100">Construimos tu<br /><span class="highlight">presencia digital</span></h1>
@@ -21,8 +24,10 @@
     </div>
   </div>
 
+  <!-- Laptop mockup with an auto-scrolling screen screenshot -->
   <div class="hero-visual" data-animate="scale" data-delay="400">
     <div class="laptop-wrapper">
+      <!-- Masked overlay that clips the scrolling content to the screen area -->
       <div class="laptop-screen-mask">
         <div class="screen-scroll">
           <img src="/shop/cocora-trimmed.jpg" alt="Cocora Coffee House" class="screen-capture" />
@@ -33,6 +38,7 @@
   </div>
 
 
+  <!-- Wave divider that transitions into the next section background -->
   <div class="hero-curve">
     <svg viewBox="0 0 1440 160" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
       <path d="M0 0C0 0 360 160 720 160C1080 160 1440 0 1440 0V160H0V0Z" fill="var(--deep-ocean)" />
@@ -42,6 +48,7 @@
 </section>
 
 <style>
+  /* Full-viewport hero with centered column layout */
   .hero {
     position: relative;
     min-height: 100vh;
@@ -55,6 +62,7 @@
     background: linear-gradient(135deg, #0A0A0A 0%, #111827 50%, #0A0A0A 100%);
   }
 
+  /* Non-interactive background layer for decorative circles */
   .hero-bg {
     position: absolute;
     inset: 0;
@@ -62,6 +70,7 @@
     pointer-events: none;
   }
 
+  /* Base style shared by all background circle elements */
   .circle {
     position: absolute;
     border-radius: 50%;
@@ -69,6 +78,7 @@
     opacity: 0.06;
   }
 
+  /* Top-right large accent circle */
   .circle-1 {
     width: 500px;
     height: 500px;
@@ -76,6 +86,7 @@
     right: -100px;
   }
 
+  /* Bottom-left mid accent circle */
   .circle-2 {
     width: 350px;
     height: 350px;
@@ -83,6 +94,7 @@
     left: -80px;
   }
 
+  /* Center-right small accent circle — slightly more transparent */
   .circle-3 {
     width: 200px;
     height: 200px;
@@ -91,12 +103,14 @@
     opacity: 0.04;
   }
 
+  /* Content block sits above background elements */
   .hero-content {
     position: relative;
     z-index: 2;
     max-width: 720px;
   }
 
+  /* Pill-shaped category label above the main heading */
   .hero-tag {
     display: inline-block;
     padding: 6px 16px;
@@ -109,6 +123,7 @@
     margin-bottom: var(--space-md);
   }
 
+  /* Fluid heading size using clamp for responsive scaling */
   h1 {
     font-size: clamp(2.5rem, 6vw, 4rem);
     font-weight: 700;
@@ -117,10 +132,12 @@
     color: var(--deep-white);
   }
 
+  /* Accent color applied to the emphasized heading span */
   .highlight {
     color: var(--lime-green);
   }
 
+  /* Supporting copy beneath the main heading */
   .hero-sub {
     font-size: 1.125rem;
     color: rgba(255, 255, 255, 0.6);
@@ -130,6 +147,7 @@
     font-weight: 300;
   }
 
+  /* CTA button row — wraps on small screens */
   .hero-actions {
     display: flex;
     gap: var(--space-sm);
@@ -137,6 +155,7 @@
     flex-wrap: wrap;
   }
 
+  /* Primary CTA — solid lime button */
   .btn-primary {
     background: var(--lime-green);
     color: var(--deep-ocean);
@@ -152,6 +171,7 @@
     box-shadow: 0 8px 24px rgba(203, 232, 80, 0.25);
   }
 
+  /* Secondary CTA — ghost button with subtle border */
   .btn-secondary {
     color: rgba(255, 255, 255, 0.7);
     padding: 14px 32px;
@@ -167,20 +187,23 @@
     color: var(--deep-white);
   }
 
-  /* Laptop with scrolling screen */
+  /* Laptop mockup with auto-scrolling screen content */
   .hero-visual {
     position: relative;
     z-index: 5;
     margin-top: var(--space-xl);
+    /* Negative margin pulls the mockup into the curve transition */
     margin-bottom: -120px;
   }
 
+  /* Responsive wrapper caps the mockup width on large screens */
   .laptop-wrapper {
     position: relative;
     width: min(520px, 80vw);
     margin: 0 auto;
   }
 
+  /* Laptop frame image layered above the screen content */
   .laptop-img {
     position: relative;
     z-index: 1;
@@ -190,6 +213,7 @@
     pointer-events: none;
   }
 
+  /* Clips the scrolling screenshot to the visible screen area of the laptop frame */
   .laptop-screen-mask {
     position: absolute;
     top: 8%;
@@ -202,6 +226,7 @@
     background: #0A0A0A;
   }
 
+  /* Slow vertical scroll simulates browsing the showcase site */
   .screen-scroll {
     animation: scrollScreen 20s linear infinite alternate;
   }
@@ -211,12 +236,13 @@
     100% { transform: translateY(-86%); }
   }
 
-  /* Screenshot capture styles */
+  /* Screenshot fills the full mask width */
   .screen-capture {
     width: 100%;
     display: block;
   }
 
+  /* Wave SVG + solid fill block that blends into the next section */
   .hero-curve {
     position: absolute;
     bottom: 0;
@@ -232,6 +258,7 @@
     height: 160px;
   }
 
+  /* Solid fill below the SVG wave to cover any sub-pixel gaps */
   .hero-curve-fill {
     display: block;
     width: 100%;
@@ -239,6 +266,7 @@
     background: var(--deep-ocean);
   }
 
+  /* Mobile adjustments — reduce top padding and sub-copy size */
   @media (max-width: 768px) {
     .hero {
       padding-top: 100px;

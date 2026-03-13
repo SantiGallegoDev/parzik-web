@@ -1,4 +1,5 @@
 ---
+// Client logo data — logos are hosted on per-client S3 buckets
 const clients = [
   { name: "Humboldt", logo: "https://asuntos-nacionales-e-internacionales-humboldt.s3.sa-east-1.amazonaws.com/thumbnail_humboldt_White_Logo_6ea6d4271b.png" },
   { name: "Luxury Patios", logo: "https://luxury-patios.s3.sa-east-1.amazonaws.com/LpWhiteLogo.png" },
@@ -15,6 +16,7 @@ const clients = [
   { name: "Cocora Coffee", logo: "https://the-cocora-coffee.s3.sa-east-1.amazonaws.com/cocoraCofeeHouseLogo.jpeg" },
 ];
 
+// Split clients into two rows for the dual-track layout
 const row1 = clients.slice(0, 7);
 const row2 = clients.slice(7);
 ---
@@ -27,14 +29,15 @@ const row2 = clients.slice(7);
   </div>
 
   <div class="carousel-scene">
-    <!-- Ambient glow -->
+    <!-- Background ambient glow and decorative grid -->
     <div class="ambient-glow"></div>
     <div class="grid-floor"></div>
 
-    <!-- Row 1 — moves left -->
+    <!-- Row 1 — scrolls left -->
     <div class="carousel-row">
       <div class="carousel-fade carousel-fade--left"></div>
       <div class="carousel-fade carousel-fade--right"></div>
+      <!-- Items duplicated 4x to ensure seamless loop at all viewport widths -->
       <div class="carousel-track track-left">
         {[...row1, ...row1, ...row1, ...row1].map((client) => (
           <div class="carousel-card">
@@ -48,10 +51,11 @@ const row2 = clients.slice(7);
       </div>
     </div>
 
-    <!-- Row 2 — moves right -->
+    <!-- Row 2 — scrolls right, offset timing for visual depth -->
     <div class="carousel-row">
       <div class="carousel-fade carousel-fade--left"></div>
       <div class="carousel-fade carousel-fade--right"></div>
+      <!-- Items duplicated 4x to ensure seamless loop at all viewport widths -->
       <div class="carousel-track track-right">
         {[...row2, ...row2, ...row2, ...row2].map((client) => (
           <div class="carousel-card">
@@ -72,6 +76,7 @@ const row2 = clients.slice(7);
     const cards = document.querySelectorAll('.carousel-card');
 
     cards.forEach((card) => {
+      // 3D tilt effect — rotates the card based on cursor position relative to its center
       card.addEventListener('mousemove', (e) => {
         const el = card as HTMLElement;
         const rect = el.getBoundingClientRect();
@@ -79,11 +84,14 @@ const row2 = clients.slice(7);
         const y = e.clientY - rect.top;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
+
+        // Normalize offset to [-1, 1] range and apply max rotation of 8deg
         const rotateX = ((y - centerY) / centerY) * -8;
         const rotateY = ((x - centerX) / centerX) * 8;
 
         el.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
 
+        // Move radial glow to follow the cursor within the card
         const glow = el.querySelector('.card-glow') as HTMLElement;
         if (glow) {
           glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(203,232,80,0.15), transparent 60%)`;
@@ -91,6 +99,7 @@ const row2 = clients.slice(7);
         }
       });
 
+      // Reset transform and hide glow when cursor leaves
       card.addEventListener('mouseleave', () => {
         const el = card as HTMLElement;
         el.style.transform = '';
@@ -167,6 +176,7 @@ const row2 = clients.slice(7);
     z-index: 0;
   }
 
+  /* Perspective grid at the bottom of the scene for depth */
   .grid-floor {
     position: absolute;
     bottom: -40px;
@@ -190,6 +200,7 @@ const row2 = clients.slice(7);
     z-index: 1;
   }
 
+  /* Edge fade overlays to soften the track at both sides */
   .carousel-fade {
     position: absolute;
     top: 0;
@@ -226,10 +237,12 @@ const row2 = clients.slice(7);
     animation: slide-right 50s linear infinite;
   }
 
+  /* Pause animation on hover so users can inspect a logo */
   .carousel-track:hover {
     animation-play-state: paused;
   }
 
+  /* Translate exactly 50% — works because the list is duplicated to create a seamless loop */
   @keyframes slide-left {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
@@ -262,6 +275,7 @@ const row2 = clients.slice(7);
     transform-style: preserve-3d;
   }
 
+  /* Gradient border drawn via pseudo-element mask technique */
   .carousel-card::before {
     content: '';
     position: absolute;
@@ -290,7 +304,7 @@ const row2 = clients.slice(7);
     background: rgba(255, 255, 255, 0.05);
   }
 
-  /* Dynamic glow that follows cursor */
+  /* Cursor-tracking radial glow — position is set via JS on mousemove */
   .card-glow {
     position: absolute;
     inset: 0;
@@ -309,6 +323,7 @@ const row2 = clients.slice(7);
     justify-content: center;
   }
 
+  /* Logos default to desaturated; restore color on hover */
   .carousel-card img {
     max-width: 120px;
     max-height: 45px;
@@ -323,6 +338,7 @@ const row2 = clients.slice(7);
     opacity: 1;
   }
 
+  /* Client name — hidden by default, fades in on hover */
   .card-label {
     position: relative;
     z-index: 1;
@@ -358,6 +374,7 @@ const row2 = clients.slice(7);
       gap: var(--space-md);
     }
 
+    /* Faster scroll on mobile to compensate for narrower viewport */
     .track-left {
       animation-duration: 30s;
     }
@@ -366,6 +383,7 @@ const row2 = clients.slice(7);
       animation-duration: 35s;
     }
 
+    /* Grid floor is a decorative-only element — hidden on mobile for performance */
     .grid-floor {
       display: none;
     }

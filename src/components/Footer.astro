@@ -2,19 +2,25 @@
 
 ---
 
+<!-- Site footer: brand, navigation links, and copyright notice -->
 <footer class="footer">
   <div class="footer-inner">
+    <!-- Brand block: logo and tagline -->
     <div class="footer-brand">
       <a href="/" class="logo">
         <img src="/logo-parzik.png" alt="Parzik" class="logo-img" />
       </a>
       <p>Software & Soluciones Digitales</p>
     </div>
+
+    <!-- Quick navigation links mirroring the main navbar sections -->
     <div class="footer-links">
       <a href="#servicios">Servicios</a>
       <a href="#nosotros">Nosotros</a>
       <a href="#contacto">Contacto</a>
     </div>
+
+    <!-- Copyright notice -->
     <div class="footer-copy">
       <p>&copy; 2026 Parzik. Todos los derechos reservados.</p>
     </div>
@@ -24,9 +30,11 @@
 <style>
   .footer {
     padding: var(--space-xl) var(--space-lg) var(--space-lg);
+    /* Subtle top border to visually separate footer from page content */
     border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
+  /* Centered, responsive row layout with wrapping for smaller screens */
   .footer-inner {
     max-width: 1100px;
     margin: 0 auto;
@@ -47,6 +55,7 @@
     width: auto;
   }
 
+  /* Muted tagline below the logo */
   .footer-brand p {
     color: rgba(255, 255, 255, 0.4);
     font-size: 0.8125rem;
@@ -68,11 +77,13 @@
     color: var(--deep-white);
   }
 
+  /* Copyright text intentionally lighter than nav links */
   .footer-copy p {
     color: rgba(255, 255, 255, 0.3);
     font-size: 0.75rem;
   }
 
+  /* Stack footer columns vertically on mobile */
   @media (max-width: 640px) {
     .footer-inner {
       flex-direction: column;
