@@ -122,10 +122,23 @@
     return canvas;
   }
 
+  // Wait until the wrapper has non-zero dimensions (mobile layout can delay this)
+  function waitForSize(el: HTMLElement): Promise<void> {
+    return new Promise((resolve) => {
+      if (el.clientWidth > 0 && el.clientHeight > 0) { resolve(); return; }
+      const ro = new ResizeObserver(() => {
+        if (el.clientWidth > 0 && el.clientHeight > 0) { ro.disconnect(); resolve(); }
+      });
+      ro.observe(el);
+    });
+  }
+
   async function init() {
     const wrapper = document.getElementById('globe-wrapper')!;
     const canvas = document.getElementById('globe-canvas') as HTMLCanvasElement;
     const labelsContainer = document.getElementById('globe-labels')!;
+
+    await waitForSize(wrapper);
 
     const width = wrapper.clientWidth;
     const height = wrapper.clientHeight;
@@ -390,7 +403,7 @@
     width: 100%;
     height: 100%;
     min-height: 300px;
-    overflow: visible;
+    overflow: hidden;
     z-index: 1;
   }
 
